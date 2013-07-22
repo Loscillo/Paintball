@@ -2,8 +2,8 @@
 
 # Ajout manuel
 *.DS_Store
-bin/* # Fichier compilés
-target/* # Fichiers maven
+bin/*
+target/*
 
 # Package Files #
 *.jar
