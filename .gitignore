@@ -1,5 +1,10 @@
 *.class
 
+# Ajout manuel
+*.DS_Store
+bin/* # Fichier compilés
+target/* # Fichiers maven
+
 # Package Files #
 *.jar
 *.war
