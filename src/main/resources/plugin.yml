@@ -1,0 +1,4 @@
+name: Paintball
+main: fr.jules_cesar.Paintball.Paintball
+version: ${project.version}
+author: Jules_Cesar
