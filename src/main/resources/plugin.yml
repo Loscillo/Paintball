@@ -2,3 +2,45 @@ name: Paintball
 main: fr.jules_cesar.Paintball.Paintball
 version: ${project.version}
 author: Jules_Cesar
+
+commands:
+   	"paintball":
+        description: "Utiliser le plugin de paintball"
+        usage: "aide"
+        
+    # Commandes administrateur
+    "paintball setrouge"
+        description: "Definir le point de teleportation rouge"
+        permission: paintball.admin
+    
+    "paintball setbleu"
+        description: "Definir le point de teleportation bleu"
+        permission: paintball.admin
+        
+    "paintball setspectateur"
+        description: "Definir le point de teleportation spectateur"
+        permission: paintball.admin    
+        
+    # Commandes joueur
+    "paintball init"
+        description: "Initialise une partie de paintball"
+        permission: paintball.joueur
+        
+    "paintball join"
+        description: "Rejoindre une partie de paintball"
+        usage: "b/r (b pour l'equipe bleu, r pour l'equipe rouge)
+        permission: paintball.joueur
+        
+    "paintball start"
+        description: "Demarrer la partie de paintball"
+        permission: paintball.joueur
+        
+    "paintball spectateur"
+        description: "Assistez a une partie de paintball"
+    
+    
+permissions:
+    paintball.admin:
+        default: false
+    paintball.joueur:
+        default: false

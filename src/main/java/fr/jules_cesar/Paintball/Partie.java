@@ -103,11 +103,12 @@ public class Partie {
 	private void finPartie() {
 		if(kill_bleu > kill_rouge) annoncer("L'equipe bleu gagne avec " + kill_bleu + " kills contre " + kill_rouge + " kills pour l'equipe rouge !");
 		else annoncer("L'equipe rouge gagne avec " + kill_rouge + " kills contre " + kill_bleu + " kills pour l'equipe bleu !");
+		Paintball.getArene().finPartie();
 	}
 
 	public void ajouterSpectateur(Player joueur){
 		// affichage scoreboard
-		Paintball.getArene().teleporterSpectateur(joueur);
+		// Paintball.getArene().teleporterSpectateur(joueur);
 		liste_spectateurs.add(joueur);
 	}
 	

@@ -62,4 +62,15 @@ public class Arene {
 	public void teleporterRouge(Player joueur){
 		joueur.teleport(rouge);
 	}
+
+	public void rejoindreSpectateurs(Player joueur) throws ArenaNotSet, ArenaNotInitialized {
+		if(bleu == null || rouge == null || spectateurs == null) throw new ArenaNotSet();
+		if(partie == null) throw new ArenaNotInitialized();
+		teleporterSpectateur(joueur);
+		partie.ajouterSpectateur(joueur);
+	}
+	
+	public void finPartie(){
+		this.partie = null;
+	}
 }

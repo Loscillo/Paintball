@@ -47,4 +47,13 @@ public class PaintballCommands implements Commands{
 			joueur.sendMessage("Il faut au minimum deux joueurs pour démarrer la partie");
 		}
 	}
+	
+	@Command(name = "spectateur")
+	public void spectateur(Player joueur){
+		try {
+			Paintball.getArene().rejoindreSpectateurs(joueur);
+		}
+		catch(ArenaNotSet e){ joueur.sendMessage(ChatColor.RED + "L'arene n'est pas configure."); }
+		catch (ArenaNotInitialized e) { joueur.sendMessage(ChatColor.RED + "Il n'y a aucune partie en cours."); }
+	}
 }
