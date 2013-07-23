@@ -31,4 +31,20 @@ public class PaintballCommands implements Commands{
 		catch(ArenaNotSet e){ joueur.sendMessage(ChatColor.RED + "L'arene n'est pas configure."); }
 		catch(ArenaAlreadyInGame e){ joueur.sendMessage(ChatColor.RED + "Une partie est deja en cours."); }
 	}
+	
+	@Command(name = "start")
+	public void demarrer(Player joueur){
+		try {
+			Paintball.getArene().demarrerPartie();
+		}
+		catch (ArenaNotInitialized e) {
+			joueur.sendMessage("Aucune partie n'est initialisé. Utilisez /paintball init pour initialiser l'arène.");
+		}
+		catch (ArenaAlreadyInGame e) {
+			joueur.sendMessage("Une partie est déjà en cours, vous ne pouvez pas en démarrer une !");
+		}
+		catch (ArenaMissingPlayers e) {
+			joueur.sendMessage("Il faut au minimum deux joueurs pour démarrer la partie");
+		}
+	}
 }

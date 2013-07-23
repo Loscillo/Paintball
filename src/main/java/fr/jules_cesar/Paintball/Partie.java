@@ -2,6 +2,7 @@ package fr.jules_cesar.Paintball;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 import org.bukkit.entity.Player;
 
@@ -26,6 +27,17 @@ public class Partie {
 	public void ajouterJoueur(Player joueur, String equipe){
 		if(equipe.equalsIgnoreCase("rouge")) joueurs_rouge.put(joueur, 4);
 		else if(equipe.equalsIgnoreCase("bleu")) joueurs_bleu.put(joueur, 4);
+	}
+	
+	public void demarrerPartie(){
+		etat = 1;
+		annoncer("La partie commence !");
+		Set<Player> joueurs = joueurs_rouge.keySet();
+		for(Player p : joueurs)
+			Paintball.getArene().teleporterRouge(p);
+		joueurs = joueurs_bleu.keySet();
+		for(Player p : joueurs)
+			Paintball.getArene().teleporterBleu(p);
 	}
 	
 	/**

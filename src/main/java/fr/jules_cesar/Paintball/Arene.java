@@ -6,8 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Snowball;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
-import fr.jules_cesar.Paintball.Exception.ArenaAlreadyInGame;
-import fr.jules_cesar.Paintball.Exception.ArenaNotSet;
+import fr.jules_cesar.Paintball.Exception.*;
 
 public class Arene {
 
@@ -31,6 +30,13 @@ public class Arene {
 		else partie.ajouterJoueur(joueur, equipe);
 	}
 	
+	public void demarrerPartie() throws ArenaNotInitialized, ArenaAlreadyInGame, ArenaMissingPlayers{
+		if(partie == null) throw new ArenaNotInitialized();
+		if(partie.obtenirEtat() == 1) throw new ArenaAlreadyInGame();
+		if(partie.nombreJoueurs() < 2) throw new ArenaMissingPlayers();
+		partie.demarrerPartie();
+	}
+	
 	public void toucher(EntityDamageByEntityEvent event){
 		if(this.partie != null && this.partie.obtenirEtat() == 1 && event.getEntityType().equals(EntityType.PLAYER) && event.getDamager().getType().equals(EntityType.SNOWBALL)){
 			Snowball boule = (Snowball) event.getDamager();
@@ -47,5 +53,13 @@ public class Arene {
 	
 	public void teleporterSpectateur(Player joueur){
 		joueur.teleport(spectateurs);
+	}
+	
+	public void teleporterBleu(Player joueur){
+		joueur.teleport(bleu);
+	}
+	
+	public void teleporterRouge(Player joueur){
+		joueur.teleport(rouge);
 	}
 }
