@@ -3,12 +3,10 @@ package fr.jules_cesar.Paintball;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 public class Partie {
 
-	private Paintball paintball;
 	private short etat;
 	private int kill_bleu = 0;
 	private int kill_rouge = 0;
@@ -16,8 +14,7 @@ public class Partie {
 	private HashMap<Player, Integer> joueurs_bleu = new HashMap<Player, Integer>();
 	private ArrayList<Player> liste_spectateurs = new ArrayList<Player>();
 	
-	public Partie(Paintball p){
-		paintball = p;
+	public Partie(){
 		etat = 0;
 	}
 	
@@ -96,7 +93,7 @@ public class Partie {
 
 	public void ajouterSpectateur(Player joueur){
 		// affichage scoreboard
-		paintball.getArene().teleporterSpectateur(joueur);
+		Paintball.getArene().teleporterSpectateur(joueur);
 		liste_spectateurs.add(joueur);
 	}
 	

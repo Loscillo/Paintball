@@ -8,7 +8,7 @@ public class Paintball extends JavaPlugin implements Listener{
 	private static Arene arene = new Arene();
 	
 	public void onEnable(){
-		getServer().getPluginManager().registerEvents(new PaintballListener(this), this);
+		getServer().getPluginManager().registerEvents(new PaintballListener(), this);
 	}
 	
 	public static Arene getArene(){
