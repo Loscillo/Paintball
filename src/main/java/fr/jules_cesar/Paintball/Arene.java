@@ -22,16 +22,17 @@ public class Arene {
 	}
 	
 	public void toucher(EntityDamageByEntityEvent event){
-		if(this.partie != null && event.getEntityType().equals(EntityType.PLAYER) && event.getDamager().getType().equals(EntityType.SNOWBALL)){
+		if(this.partie != null && this.partie.obtenirEtat() == 1 && event.getEntityType().equals(EntityType.PLAYER) && event.getDamager().getType().equals(EntityType.SNOWBALL)){
 			Snowball boule = (Snowball) event.getDamager();
 			if(this.partie.estJoueur((Player) event.getEntity()) && this.partie.estJoueur((Player) boule.getShooter()))
 				partie.toucherJoueur((Player) event.getEntity(), (Player) boule.getShooter());
 		}
 	}
 
-	public void deconnexion(Player player) {
-		if(this.partie != null && this.partie.estPresent(player))
-			partie.deconnexion(player);
+	public void deconnexion(Player joueur) {
+		if(this.partie != null && this.partie.estPresent(joueur)){
+				partie.deconnexion(joueur, (this.partie.estJoueur(joueur)));
+		}
 	}
 	
 	public void teleporterSpectateur(Player joueur){

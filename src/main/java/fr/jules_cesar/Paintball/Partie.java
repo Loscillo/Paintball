@@ -65,12 +65,12 @@ public class Partie {
 		if(joueurs_rouge.containsKey(joueur)){
 			kill_bleu++;
 			joueurs_rouge.put(joueur, joueurs_rouge.get(joueur) - 1);
-			if(joueurs_rouge.get(joueur) == 0) tuerJoueur(joueur, joueurs_rouge);
+			if(joueurs_rouge.get(joueur) == 0) tuerJoueur(joueur, joueurs_rouge, true);
 		}
 		else{
 			kill_rouge++;
 			joueurs_bleu.put(joueur, joueurs_rouge.get(joueur) - 1);
-			if(joueurs_bleu.get(joueur) == 0) tuerJoueur(joueur, joueurs_bleu);
+			if(joueurs_bleu.get(joueur) == 0) tuerJoueur(joueur, joueurs_bleu, true);
 		}
 		joueur.setHealth(10);
 		annoncer(joueur.getName() + " c'est fait toucher par " + tireur.getName());
@@ -80,9 +80,11 @@ public class Partie {
 	 * Passe le joueur en spectateur et annonce sa mort au public
 	 * @param joueur Le joueur mort
 	 */
-	public void tuerJoueur(Player joueur, HashMap<Player, Integer> equipe){
-		// Warp au public, annoncer la mort
+	public void tuerJoueur(Player joueur, HashMap<Player, Integer> equipe, boolean naturel){
+		Paintball.getArene().teleporterSpectateur(joueur);
 		equipe.remove(joueur);
+		if(naturel) annoncer(joueur.getName() + " n'a plus de vie ! Il est donc elimine.");
+		else annoncer(joueur.getName() + " est considere comme mort suite a sa deconnexion.");
 		if(nombreJoueurs() == 0) finPartie();
 	}
 	
@@ -110,8 +112,23 @@ public class Partie {
 			p.sendMessage(message);
 	}
 
-	public void deconnexion(Player player) {
-		// A remplir
+	public void deconnexion(Player player, boolean joueur) {
+		if(!joueur)
+			liste_spectateurs.remove(player);
+		else if(this.etat == 0){
+			if(joueurs_rouge.containsKey(player)) joueurs_rouge.remove(player);
+			else joueurs_bleu.remove(player);
+		}
+		else{
+			if(joueurs_rouge.containsKey(player)){
+				kill_bleu += joueurs_rouge.remove(player);
+				tuerJoueur(player, joueurs_rouge, false);
+			}
+			else{
+				kill_rouge += joueurs_bleu.remove(player);
+				tuerJoueur(player, joueurs_bleu, false);
+			}
+		}
 	}
 
 	public int obtenirEtat(){
