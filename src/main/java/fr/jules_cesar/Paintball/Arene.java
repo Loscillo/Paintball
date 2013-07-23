@@ -16,9 +16,19 @@ public class Arene {
 	private Location spectateurs;
 	private Partie partie;
 	
-	public void initialiserPartie() throws ArenaNotSet, ArenaAlreadyInGame{
+	public void initialiserPartie(Player joueur) throws ArenaNotSet, ArenaAlreadyInGame{
 		if(bleu == null || rouge == null || spectateurs == null) throw new ArenaNotSet();
-		if(partie != null) throw new ArenaAlreadyInGame();
+		if(partie != null){
+			if(partie.obtenirEtat() == 1) throw new ArenaAlreadyInGame();
+			else joueur.sendMessage("L'arène est déjà initialisé. Tu peut rejoindre la partie avec /paintball join r/b");
+		}
+		this.partie = new Partie();
+	}
+	
+	public void rejoindrePartie(Player joueur, String equipe) throws ArenaNotSet, ArenaAlreadyInGame{
+		if(partie == null) initialiserPartie(joueur);
+		else if(partie.obtenirEtat() == 1) throw new ArenaAlreadyInGame();
+		else partie.ajouterJoueur(joueur, equipe);
 	}
 	
 	public void toucher(EntityDamageByEntityEvent event){
