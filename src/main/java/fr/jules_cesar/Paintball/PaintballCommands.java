@@ -22,7 +22,7 @@ public class PaintballCommands implements Commands{
 		catch(ArenaAlreadyInGame e){ joueur.sendMessage(ChatColor.RED + "Une partie est deja en cours."); }
 	}
 	
-	@Command(name = "join", flags = "br", min = 1, max = 1)
+	@Command(name = "join", flags = "br")
 	public void rejoindre(Player joueur, CommandArgs args){
 		try{
 			if(args.hasFlag('b')) Paintball.getArene().rejoindrePartie(joueur, "bleu");
@@ -30,6 +30,7 @@ public class PaintballCommands implements Commands{
 		}
 		catch(ArenaNotSet e){ joueur.sendMessage(ChatColor.RED + "L'arene n'est pas configure."); }
 		catch(ArenaAlreadyInGame e){ joueur.sendMessage(ChatColor.RED + "Une partie est deja en cours."); }
+		catch(PlayerAlreadyInGame e){ joueur.sendMessage(ChatColor.RED + "Vous etes deja dans la partie !"); }
 	}
 	
 	@Command(name = "start")

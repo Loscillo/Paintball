@@ -1,5 +1,7 @@
 package fr.jules_cesar.Paintball;
 
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -16,17 +18,24 @@ public class Arene {
 	
 	public void initialiserPartie(Player joueur) throws ArenaNotSet, ArenaAlreadyInGame{
 		if(bleu == null || rouge == null || spectateur == null) throw new ArenaNotSet();
-		if(Paintball.getPartie() != null){
+		else if(Paintball.getPartie() != null){
 			if(Paintball.getPartie().obtenirEtat() == 1) throw new ArenaAlreadyInGame();
 			else joueur.sendMessage("L'arene est deja initialise. Tu peut rejoindre la partie avec /paintball join r/b");
 		}
-		Paintball.setPartie(new Partie());
+		else{
+			Paintball.setPartie(new Partie());
+			Bukkit.getServer().broadcastMessage("Une partie de Paintball est initialise !\n/paintball join -r pour rejoindre l'equipe rouge !\n/paintballl join -b pour rejoindre l'equipe bleu !");
+		}
 	}
 	
-	public void rejoindrePartie(Player joueur, String equipe) throws ArenaNotSet, ArenaAlreadyInGame{
+	public void rejoindrePartie(Player joueur, String equipe) throws ArenaNotSet, ArenaAlreadyInGame, PlayerAlreadyInGame{
 		if(Paintball.getPartie() == null) initialiserPartie(joueur);
 		else if(Paintball.getPartie().obtenirEtat() == 1) throw new ArenaAlreadyInGame();
-		else Paintball.getPartie().ajouterJoueur(joueur, equipe);
+		else if(Paintball.getPartie().estJoueur(joueur)) throw new PlayerAlreadyInGame();
+		else{
+			Paintball.getPartie().ajouterJoueur(joueur, equipe);
+			Paintball.getPartie().annoncer(ChatColor.GREEN + joueur.getName() + ChatColor.BLUE + " a rejoint l'equipe " + (equipe.equalsIgnoreCase("bleu")?ChatColor.BLUE:ChatColor.RED) + equipe);
+		}
 	}
 	
 	public void demarrerPartie() throws ArenaNotInitialized, ArenaAlreadyInGame, ArenaMissingPlayers{
