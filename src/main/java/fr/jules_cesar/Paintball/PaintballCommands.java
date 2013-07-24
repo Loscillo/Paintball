@@ -38,13 +38,13 @@ public class PaintballCommands implements Commands{
 			Paintball.getArene().demarrerPartie();
 		}
 		catch (ArenaNotInitialized e) {
-			joueur.sendMessage("Aucune partie n'est initialisé. Utilisez /paintball init pour initialiser l'arène.");
+			joueur.sendMessage("Aucune partie n'est initialise. Utilisez /paintball init pour initialiser l'arene.");
 		}
 		catch (ArenaAlreadyInGame e) {
-			joueur.sendMessage("Une partie est déjà en cours, vous ne pouvez pas en démarrer une !");
+			joueur.sendMessage("Une partie est deja en cours, vous ne pouvez pas en demarrer une !");
 		}
 		catch (ArenaMissingPlayers e) {
-			joueur.sendMessage("Il faut au minimum deux joueurs pour démarrer la partie");
+			joueur.sendMessage("Il faut au minimum deux joueurs pour demarrer la partie");
 		}
 	}
 	
@@ -55,5 +55,23 @@ public class PaintballCommands implements Commands{
 		}
 		catch(ArenaNotSet e){ joueur.sendMessage(ChatColor.RED + "L'arene n'est pas configure."); }
 		catch (ArenaNotInitialized e) { joueur.sendMessage(ChatColor.RED + "Il n'y a aucune partie en cours."); }
+	}
+	
+	@Command(name = "setbleu")
+	public void setBleu(Player joueur){
+		Paintball.getTeleport().setBleu(joueur.getLocation());
+		joueur.sendMessage("Le point bleu est mis a jour.");
+	}
+	
+	@Command(name = "setrouge")
+	public void setRouge(Player joueur){
+		Paintball.getTeleport().setRouge(joueur.getLocation());
+		joueur.sendMessage("Le point rouge est mis a jour.");
+	}
+	
+	@Command(name = "setspectateur")
+	public void setSpectateur(Player joueur){
+		Paintball.getTeleport().setSpectateur(joueur.getLocation());
+		joueur.sendMessage("Le point spectateur est mis a jour.");
 	}
 }

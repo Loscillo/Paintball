@@ -19,7 +19,7 @@ public class Arene {
 		if(bleu == null || rouge == null || spectateurs == null) throw new ArenaNotSet();
 		if(partie != null){
 			if(partie.obtenirEtat() == 1) throw new ArenaAlreadyInGame();
-			else joueur.sendMessage("L'arène est déjà initialisé. Tu peut rejoindre la partie avec /paintball join r/b");
+			else joueur.sendMessage("L'arene est deja initialise. Tu peut rejoindre la partie avec /paintball join r/b");
 		}
 		this.partie = new Partie();
 	}
