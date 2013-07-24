@@ -89,6 +89,7 @@ public class Partie {
 	 * @param tireur Le joueur qui a tire
 	 */
 	public void toucherJoueur(Player joueur, Player tireur){
+		annoncer(joueur.getName() + " c'est fait toucher par " + tireur.getName());
 		if(joueurs_rouge.containsKey(joueur)){
 			kill_bleu++;
 			joueurs_rouge.put(joueur, joueurs_rouge.get(joueur) - 1);
@@ -96,11 +97,10 @@ public class Partie {
 		}
 		else{
 			kill_rouge++;
-			joueurs_bleu.put(joueur, joueurs_rouge.get(joueur) - 1);
+			joueurs_bleu.put(joueur, joueurs_bleu.get(joueur) - 1);
 			if(joueurs_bleu.get(joueur) == 0) tuerJoueur(joueur, joueurs_bleu, true);
 		}
 		joueur.setHealth(10);
-		annoncer(joueur.getName() + " c'est fait toucher par " + tireur.getName());
 	}
 	
 	/**
