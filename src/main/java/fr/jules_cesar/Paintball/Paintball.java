@@ -20,7 +20,7 @@ import fr.jules_cesar.Paintball.TypeAdapter.LocationAdapter;
 public class Paintball extends JavaPlugin implements Listener{
 
 	private static Arene arene = new Arene();
-	private static Teleportation teleport = new Teleportation();
+	private static Partie partie;
 	
 	public void onEnable(){
 		// Events
@@ -31,15 +31,14 @@ public class Paintball extends JavaPlugin implements Listener{
 		Gson gson = new GsonBuilder().registerTypeAdapter(Location.class, new LocationAdapter()).setPrettyPrinting().create();
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(getDataFolder().getPath() + "/location.json"));
-			teleport = gson.fromJson(br, Teleportation.class);
+			arene = gson.fromJson(br, Arene.class);
 			br.close();
 		} catch (FileNotFoundException e) {
 			getLogger().warning("Le fichier de configuration n'est pas disponible. Le plugin ne sera pas actif.");
 		} catch (IOException e) {
 			getLogger().warning("Erreur de lecture du fichier de configuration. Le plugin ne sera pas actif.");
 		}
-		getLogger().info(teleport.toString());
-		
+
 		// Commandes
 		CommandsRegistration register = new CommandsRegistration(this, Locale.FRANCE);
 		register.register(new PaintballCommands());
@@ -50,7 +49,7 @@ public class Paintball extends JavaPlugin implements Listener{
 		FileWriter writer;
 		try {
 			writer = new FileWriter(getDataFolder().getPath() + "/location.json");
-			writer.write(gson.toJson(teleport));
+			writer.write(gson.toJson(arene));
 			writer.close();
 		} catch (IOException e) {
 			getLogger().warning("Erreur d'ecriture du fichier de configuration. Le plugin risque de ne pas etre actif au prochain lancement.");
@@ -61,7 +60,11 @@ public class Paintball extends JavaPlugin implements Listener{
 		return arene;
 	}
 	
-	public static Teleportation getTeleport(){
-		return teleport;
+	public static Partie getPartie(){
+		return partie;
+	}
+	
+	public static void setPartie(Partie p){
+		partie = p;
 	}
 }

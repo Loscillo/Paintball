@@ -22,7 +22,7 @@ public class PaintballCommands implements Commands{
 		catch(ArenaAlreadyInGame e){ joueur.sendMessage(ChatColor.RED + "Une partie est deja en cours."); }
 	}
 	
-	@Command(name = "join", flags = "br")
+	@Command(name = "join", flags = "br", min = 1, max = 1)
 	public void rejoindre(Player joueur, CommandArgs args){
 		try{
 			if(args.hasFlag('b')) Paintball.getArene().rejoindrePartie(joueur, "bleu");
@@ -59,19 +59,19 @@ public class PaintballCommands implements Commands{
 	
 	@Command(name = "setbleu")
 	public void setBleu(Player joueur){
-		Paintball.getTeleport().setBleu(joueur.getLocation());
+		Paintball.getArene().setBleu(joueur.getLocation());
 		joueur.sendMessage("Le point bleu est mis a jour.");
 	}
 	
 	@Command(name = "setrouge")
 	public void setRouge(Player joueur){
-		Paintball.getTeleport().setRouge(joueur.getLocation());
+		Paintball.getArene().setRouge(joueur.getLocation());
 		joueur.sendMessage("Le point rouge est mis a jour.");
 	}
 	
 	@Command(name = "setspectateur")
 	public void setSpectateur(Player joueur){
-		Paintball.getTeleport().setSpectateur(joueur.getLocation());
+		Paintball.getArene().setSpectateur(joueur.getLocation());
 		joueur.sendMessage("Le point spectateur est mis a jour.");
 	}
 }
