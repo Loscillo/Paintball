@@ -2,6 +2,7 @@ package fr.jules_cesar.Paintball;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Set;
 
@@ -25,6 +26,7 @@ public class Partie {
 	
 	public Partie(){
 		etat = 0;
+		attente = new LinkedList<Player>();
 	}
 	
 	/**
@@ -41,13 +43,16 @@ public class Partie {
 	public void demarrerPartie(){
 		etat = 1;
 		equilibrerEquipe();
-		annoncer("La partie commence !");
+		attente = null;
+		
+		// Teleportation des joueurs
 		Set<Player> joueurs = joueurs_rouge.keySet();
 		for(Player p : joueurs)
 			Paintball.getArene().teleporterRouge(p);
 		joueurs = joueurs_bleu.keySet();
 		for(Player p : joueurs)
 			Paintball.getArene().teleporterBleu(p);
+		annoncer("La partie commence !");
 	}
 	
 	/**
