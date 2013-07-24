@@ -30,12 +30,12 @@ public class Arene {
 	
 	public void rejoindrePartie(Player joueur, String equipe) throws ArenaNotSet, ArenaAlreadyInGame, PlayerAlreadyInGame{
 		if(Paintball.getPartie() == null) initialiserPartie(joueur);
-		else if(Paintball.getPartie().obtenirEtat() == 1) throw new ArenaAlreadyInGame();
-		else if(Paintball.getPartie().estJoueur(joueur)) throw new PlayerAlreadyInGame();
-		else{
-			Paintball.getPartie().ajouterJoueur(joueur, equipe);
-			Paintball.getPartie().annoncer(ChatColor.GREEN + joueur.getName() + ChatColor.BLUE + " a rejoint l'equipe " + (equipe.equalsIgnoreCase("bleu")?ChatColor.BLUE:ChatColor.RED) + equipe);
-		}
+		if(Paintball.getPartie().obtenirEtat() == 1) throw new ArenaAlreadyInGame();
+		if(Paintball.getPartie().estJoueur(joueur)) throw new PlayerAlreadyInGame();
+		
+		Paintball.getPartie().ajouterJoueur(joueur, equipe);
+		Paintball.getPartie().annoncer(ChatColor.GREEN + joueur.getName() + ChatColor.BLUE + " a rejoint l'equipe " + (equipe.equalsIgnoreCase("bleu")?ChatColor.BLUE:ChatColor.RED) + equipe);
+		
 	}
 	
 	public void demarrerPartie(Player joueur) throws ArenaNotInitialized, ArenaAlreadyInGame, ArenaMissingPlayers, PlayerNotInGame{
