@@ -174,12 +174,14 @@ public class Partie {
 			joueurs_rouge.put(attente.peek(), 4);
 			joueurs_bleu.remove(attente.peek());
 			annoncer(ChatColor.GREEN + attente.poll().getName() + ChatColor.BLUE + " passe dans l'equipe " + ChatColor.RED + "rouge " + ChatColor.BLUE + " suite a un desequilibre.");
+			difference++;
 		}
 		while(difference > 1){
 			while(!joueurs_rouge.containsKey(attente.peek())) attente.remove();
 			joueurs_bleu.put(attente.peek(), 4);
 			joueurs_rouge.remove(attente.peek());
 			annoncer(ChatColor.GREEN + attente.poll().getName() + ChatColor.BLUE + " passe dans l'equipe " + ChatColor.AQUA + "bleu " + ChatColor.BLUE + " suite a un desequilibre.");
+			difference--;
 		}
 	}
 }
