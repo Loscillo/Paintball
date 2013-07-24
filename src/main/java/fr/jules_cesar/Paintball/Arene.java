@@ -38,9 +38,10 @@ public class Arene {
 		}
 	}
 	
-	public void demarrerPartie() throws ArenaNotInitialized, ArenaAlreadyInGame, ArenaMissingPlayers{
+	public void demarrerPartie(Player joueur) throws ArenaNotInitialized, ArenaAlreadyInGame, ArenaMissingPlayers, PlayerNotInGame{
 		if(Paintball.getPartie() == null) throw new ArenaNotInitialized();
 		if(Paintball.getPartie().obtenirEtat() == 1) throw new ArenaAlreadyInGame();
+		if(!Paintball.getPartie().estJoueur(joueur)) throw new PlayerNotInGame();
 		if(Paintball.getPartie().nombreJoueurs() < 2) throw new ArenaMissingPlayers();
 		Paintball.getPartie().demarrerPartie();
 	}

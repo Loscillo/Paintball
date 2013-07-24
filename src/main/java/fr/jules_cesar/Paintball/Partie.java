@@ -2,17 +2,25 @@ package fr.jules_cesar.Paintball;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Queue;
 import java.util.Set;
 
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 public class Partie {
 
-	private short etat;
+	/* Partie en attente */
+	Queue<Player> attente;
+	
+	/* Partie en cours */
 	private int kill_bleu = 0;
 	private int kill_rouge = 0;
 	private HashMap<Player, Integer> joueurs_rouge = new HashMap<Player, Integer>();
 	private HashMap<Player, Integer> joueurs_bleu = new HashMap<Player, Integer>();
+	
+	/* Autre */
+	private short etat;
 	private ArrayList<Player> liste_spectateurs = new ArrayList<Player>();
 	
 	public Partie(){
@@ -25,12 +33,14 @@ public class Partie {
 	 * @param equipe L'equipe du joueur
 	 */
 	public void ajouterJoueur(Player joueur, String equipe){
+		attente.add(joueur);
 		if(equipe.equalsIgnoreCase("rouge")) joueurs_rouge.put(joueur, 4);
 		else if(equipe.equalsIgnoreCase("bleu")) joueurs_bleu.put(joueur, 4);
 	}
 	
 	public void demarrerPartie(){
 		etat = 1;
+		equilibrerEquipe();
 		annoncer("La partie commence !");
 		Set<Player> joueurs = joueurs_rouge.keySet();
 		for(Player p : joueurs)
@@ -150,5 +160,21 @@ public class Partie {
 	
 	public boolean estPresent(Player joueur) {
 		return (joueurs_rouge.containsKey(joueur) || joueurs_bleu.containsKey(joueur) || liste_spectateurs.contains(joueur));
+	}
+	
+	public void equilibrerEquipe(){
+		int difference = joueurs_rouge.size() - joueurs_bleu.size();
+		while(difference < -1){
+			while(!joueurs_bleu.containsKey(attente.peek())) attente.remove();
+			joueurs_rouge.put(attente.peek(), 4);
+			joueurs_bleu.remove(attente.peek());
+			annoncer(ChatColor.GREEN + attente.poll().getName() + ChatColor.BLUE + " passe dans l'equipe " + ChatColor.RED + "rouge " + ChatColor.BLUE + " suite a un desequilibre.");
+		}
+		while(difference > 1){
+			while(!joueurs_rouge.containsKey(attente.peek())) attente.remove();
+			joueurs_bleu.put(attente.peek(), 4);
+			joueurs_rouge.remove(attente.peek());
+			annoncer(ChatColor.GREEN + attente.poll().getName() + ChatColor.BLUE + " passe dans l'equipe " + ChatColor.AQUA + "bleu " + ChatColor.BLUE + " suite a un desequilibre.");
+		}
 	}
 }

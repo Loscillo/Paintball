@@ -36,7 +36,7 @@ public class PaintballCommands implements Commands{
 	@Command(name = "start")
 	public void demarrer(Player joueur){
 		try {
-			Paintball.getArene().demarrerPartie();
+			Paintball.getArene().demarrerPartie(joueur);
 		}
 		catch (ArenaNotInitialized e) {
 			joueur.sendMessage("Aucune partie n'est initialise. Utilisez /paintball init pour initialiser l'arene.");
@@ -45,7 +45,9 @@ public class PaintballCommands implements Commands{
 			joueur.sendMessage("Une partie est deja en cours, vous ne pouvez pas en demarrer une !");
 		}
 		catch (ArenaMissingPlayers e) {
-			joueur.sendMessage("Il faut au minimum deux joueurs pour demarrer la partie");
+			joueur.sendMessage("Il faut au minimum deux joueurs pour demarrer la partie.");
+		} catch (PlayerNotInGame e) {
+			joueur.sendMessage("Seul les joueurs peuvent demarrer la partie.");
 		}
 	}
 	
