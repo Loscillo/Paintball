@@ -92,6 +92,7 @@ public class PaintballCommands implements Commands{
 			Paintball.getArene().quitter(joueur);
 		}
 		catch (PlayerNotInGame e) { joueur.sendMessage("Vous n'etes pas dans l'arene."); }
+		catch (ArenaAlreadyInGame e) { joueur.sendMessage("Vous ne pouvez pas quitter l'arene en cours de partie."); }
 	}
 	
 	@Command(name = "save")

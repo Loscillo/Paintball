@@ -77,6 +77,7 @@ public class Partie {
 	 * @param joueur Le joueur a retirer
 	 */
 	public void retirerJoueur(Player joueur){
+		attente.remove(joueur);
 		if(joueurs_rouge.containsKey(joueur))
 			joueurs_rouge.remove(joueur);
 		else

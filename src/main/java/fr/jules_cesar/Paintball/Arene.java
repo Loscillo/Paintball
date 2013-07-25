@@ -32,7 +32,7 @@ public class Arene {
 		if(Paintball.getPartie() == null) initialiserPartie(joueur);
 		if(Paintball.getPartie().obtenirEtat() == 1) throw new ArenaAlreadyInGame();
 		if(Paintball.getPartie().estJoueur(joueur)) throw new PlayerAlreadyInGame();
-		
+		joueur.teleport(spectateur);
 		Paintball.getPartie().ajouterJoueur(joueur, equipe);
 		Paintball.getPartie().annoncer(ChatColor.GREEN + joueur.getName() + ChatColor.BLUE + " a rejoint l'equipe " + (equipe.equalsIgnoreCase("bleu")?ChatColor.BLUE:ChatColor.RED) + equipe);
 		
@@ -78,7 +78,7 @@ public class Arene {
 	public void rejoindreSpectateurs(Player joueur) throws ArenaNotSet, ArenaNotInitialized {
 		if(bleu == null || rouge == null || spectateur == null) throw new ArenaNotSet();
 		if(Paintball.getPartie() == null) throw new ArenaNotInitialized();
-		teleporterSpectateur(joueur);
+		joueur.teleport(spectateur);
 		Paintball.getPartie().ajouterSpectateur(joueur);
 	}
 	
@@ -111,11 +111,14 @@ public class Arene {
 		return spectateur;
 	}
 
-	public void quitter(Player joueur) throws PlayerNotInGame {
+	public void quitter(Player joueur) throws PlayerNotInGame, ArenaAlreadyInGame {
 		if(Paintball.getPartie() != null){
 			Partie p = Paintball.getPartie();
 			if(!p.estPresent(joueur)) throw new PlayerNotInGame();
-			else if(p.estJoueur(joueur)) ;
+			else if(p.estJoueur(joueur)){
+				if(p.obtenirEtat() != 0) throw new ArenaAlreadyInGame();
+				p.retirerJoueur(joueur);
+			}
 			else p.retirerSpectateur(joueur);
 		}
 	}
