@@ -77,4 +77,9 @@ public class PaintballCommands implements Commands{
 		Paintball.getArene().setSpectateur(joueur.getLocation());
 		joueur.sendMessage("Le point spectateur est mis a jour.");
 	}
+	
+	@Command(name = "quitter")
+	public void quitter(Player joueur){
+		Paintball.getArene().quitter(joueur);
+	}
 }

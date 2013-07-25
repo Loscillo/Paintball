@@ -110,4 +110,13 @@ public class Arene {
 	public Location getSpectateur(){
 		return spectateur;
 	}
+
+	public void quitter(Player joueur) throws PlayerNotInGame {
+		if(Paintball.getPartie() != null){
+			Partie p = Paintball.getPartie();
+			if(!p.estPresent(joueur)) throw new PlayerNotInGame();
+			else if(p.estJoueur(joueur)) ;
+			else p.retirerSpectateur(joueur);
+		}
+	}
 }

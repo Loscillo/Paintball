@@ -37,6 +37,11 @@ commands:
         
     "paintball spectateur":
         description: "Assistez a une partie de paintball"
+        permission: paintball.joueur
+        
+    "paintball quitter":
+        description: "Assistez a une partie de paintball"
+        permission: paintball.joueur
     
     
 permissions:

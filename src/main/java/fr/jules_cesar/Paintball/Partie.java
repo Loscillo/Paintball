@@ -192,4 +192,8 @@ public class Partie {
 			difference--;
 		}
 	}
+
+	public void retirerSpectateur(Player joueur) {
+		liste_spectateurs.remove(joueur);
+	}
 }
