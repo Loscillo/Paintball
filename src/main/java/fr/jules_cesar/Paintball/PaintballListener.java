@@ -10,6 +10,12 @@ import fr.jules_cesar.Paintball.ScoreBoard.TableauScore;
 
 public class PaintballListener implements Listener{
 	
+	private Paintball plugin;
+	
+	public PaintballListener(Paintball p){
+		this.plugin = p;
+	}
+	
 	@EventHandler
 	public void toucher(EntityDamageByEntityEvent event){
 		Paintball.getArene().toucher(event);
@@ -22,6 +28,7 @@ public class PaintballListener implements Listener{
 	
 	@EventHandler
 	public void connexion(PlayerJoinEvent event){
-		TableauScore.ajouterVue(event.getPlayer());
+		//TableauScore.ajouterVue(event.getPlayer());
+		//new GsonUtil(plugin.getLogger(), plugin.getDataFolder().getPath()).ecrire(event.getPlayer().getName(), event.getPlayer().getInventory());
 	}
 }

@@ -16,7 +16,7 @@ public class Paintball extends JavaPlugin implements Listener{
 	
 	public void onEnable(){
 		// Events
-		getServer().getPluginManager().registerEvents(new PaintballListener(), this);
+		getServer().getPluginManager().registerEvents(new PaintballListener(this), this);
 		
 		// Configuration
 		if(!this.getDataFolder().exists()) this.getDataFolder().mkdir();

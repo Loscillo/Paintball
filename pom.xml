@@ -130,21 +130,8 @@
 					<linksource>true</linksource>
 					<groups>
 						<group>
-							<title>Core</title>
-							<packages>fr.aumgn.dac2:fr.aumgn.dac2.utils:fr.aumgn.dac2.config:fr.aumgn.dac2.exceptions</packages>
-						</group>
-						<group>
-							<title>Commands</title>
-							<packages>fr.aumgn.dac2.commands*</packages>
-						</group>
-						<group>
-							<title>Arenas</title>
-							<packages>fr.aumgn.dac2.shape*:fr.aumgn.dac2.arena*</packages>
-						</group>
-						<group>
-							<title>Stages</title>
-							<packages>fr.aumgn.dac2.stage*:fr.aumgn.dac2.game*</packages>
-						</group>
+							<title>Paintball</title>
+							<packages>fr.jules_cesar.Paintball</packages>
 					</groups>
 				</configuration>
 			</plugin>
