@@ -111,8 +111,9 @@ public class Partie {
 	 * @param joueur Le joueur mort
 	 */
 	private void tuerJoueur(Player joueur, HashMap<Player, Integer> equipe, boolean naturel){
-		Paintball.getArene().teleporterSpectateur(joueur);
 		equipe.remove(joueur);
+		Paintball.getArene().teleporterSpectateur(joueur);
+		ajouterSpectateur(joueur);
 		file.add(joueur);
 		if(naturel) annoncer(joueur.getName() + " n'a plus de vie ! Il est donc elimine.");
 		else annoncer(joueur.getName() + " est considere comme mort suite a sa deconnexion.");
