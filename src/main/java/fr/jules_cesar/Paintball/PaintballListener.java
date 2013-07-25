@@ -25,10 +25,4 @@ public class PaintballListener implements Listener{
 	public void deconnexion(PlayerQuitEvent event){
 		Paintball.getArene().deconnexion(event.getPlayer());
 	}
-	
-	@EventHandler
-	public void connexion(PlayerJoinEvent event){
-		//TableauScore.ajouterVue(event.getPlayer());
-		//new GsonUtil(plugin.getLogger(), plugin.getDataFolder().getPath()).ecrire(event.getPlayer().getName(), event.getPlayer().getInventory());
-	}
 }

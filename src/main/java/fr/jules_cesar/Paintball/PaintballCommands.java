@@ -1,5 +1,7 @@
 package fr.jules_cesar.Paintball;
 
+import java.util.logging.Logger;
+
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
@@ -13,6 +15,12 @@ import fr.jules_cesar.Paintball.Exception.*;
 @NestedCommands("paintball")
 public class PaintballCommands implements Commands{
 
+	private Paintball plugin;
+	
+	public PaintballCommands(Paintball p){
+		this.plugin = p;
+	}
+	
 	@Command(name = "init")
 	public void initialiser(Player joueur){
 		try{
@@ -80,6 +88,22 @@ public class PaintballCommands implements Commands{
 	
 	@Command(name = "quitter")
 	public void quitter(Player joueur){
-		Paintball.getArene().quitter(joueur);
+		try {
+			Paintball.getArene().quitter(joueur);
+		}
+		catch (PlayerNotInGame e) { joueur.sendMessage("Vous n'etes pas dans l'arene."); }
+	}
+	
+	@Command(name = "save")
+	public void save(Player joueur){
+		new GsonUtil(plugin.getLogger(), plugin.getDataFolder().getPath()).ecrire(joueur.getName(), new Inventaire(joueur.getInventory()));
+		joueur.getInventory().clear();
+	}
+	
+	@Command(name = "load")
+	public void load(Player joueur){
+		Inventaire inventaire = (Inventaire) new GsonUtil(plugin.getLogger(), plugin.getDataFolder().getPath()).lire(joueur.getName(), Inventaire.class);
+		joueur.getInventory().setContents(inventaire.getItems());
+		joueur.getInventory().setArmorContents(inventaire.getArmor());
 	}
 }

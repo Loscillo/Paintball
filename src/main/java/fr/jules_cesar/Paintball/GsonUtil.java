@@ -7,10 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.Logger;
 
-import net.minecraft.server.v1_5_R3.PlayerInventory;
-
 import org.bukkit.Location;
-import org.bukkit.inventory.ItemStack;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -26,8 +23,6 @@ public class GsonUtil{
   public GsonUtil(Logger log, String chemin){
     gson = new GsonBuilder()
     .registerTypeAdapter(Location.class, new LocationAdapter())
-    .registerTypeAdapter(ItemStack.class, new ItemStackAdapter())
-    .registerTypeAdapter(PlayerInventory.class, new PlayerInventoryAdapter())
     .setPrettyPrinting()
     .create();
     this.log = log;

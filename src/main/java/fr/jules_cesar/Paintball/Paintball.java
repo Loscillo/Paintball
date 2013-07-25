@@ -24,7 +24,7 @@ public class Paintball extends JavaPlugin implements Listener{
 
 		// Commandes
 		CommandsRegistration register = new CommandsRegistration(this, Locale.FRANCE);
-		register.register(new PaintballCommands());
+		register.register(new PaintballCommands(this));
 	}
 	
 	public void onDisable(){

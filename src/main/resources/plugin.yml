@@ -17,6 +17,14 @@ commands:
         description: "Definir le point de teleportation bleu"
         permission: paintball.admin
         
+    "paintball save":
+        description: "Sauvegarde votre inventaire"
+        permission: paintball.admin
+    
+    "paintball load":
+        description: "Charge votre inventaire"
+        permission: paintball.admin
+        
     "paintball setspectateur":
         description: "Definir le point de teleportation spectateur"
         permission: paintball.admin    
