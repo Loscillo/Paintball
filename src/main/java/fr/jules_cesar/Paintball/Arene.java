@@ -75,9 +75,10 @@ public class Arene {
 		joueur.teleport(rouge);
 	}
 
-	public void rejoindreSpectateurs(Player joueur) throws ArenaNotSet, ArenaNotInitialized {
+	public void rejoindreSpectateurs(Player joueur) throws ArenaNotSet, ArenaNotInitialized, PlayerAlreadyInGame {
 		if(bleu == null || rouge == null || spectateur == null) throw new ArenaNotSet();
 		if(Paintball.getPartie() == null) throw new ArenaNotInitialized();
+		if(Paintball.getPartie().estJoueur(joueur)) throw new PlayerAlreadyInGame();
 		joueur.teleport(spectateur);
 		Paintball.getPartie().ajouterSpectateur(joueur);
 	}

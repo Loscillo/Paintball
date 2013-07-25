@@ -66,6 +66,7 @@ public class PaintballCommands implements Commands{
 		}
 		catch(ArenaNotSet e){ joueur.sendMessage(ChatColor.RED + "L'arene n'est pas configure."); }
 		catch (ArenaNotInitialized e) { joueur.sendMessage(ChatColor.RED + "Il n'y a aucune partie en cours."); }
+		catch (PlayerAlreadyInGame e) { joueur.sendMessage(ChatColor.RED + "Vous ne pouvez pas etre spectateur en etant deja joueur !"); }
 	}
 	
 	@Command(name = "setbleu")
