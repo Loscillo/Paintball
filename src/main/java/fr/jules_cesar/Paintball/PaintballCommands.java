@@ -108,4 +108,9 @@ public class PaintballCommands implements Commands{
 		joueur.getInventory().setContents(inventaire.getItems());
 		joueur.getInventory().setArmorContents(inventaire.getArmor());
 	}
+	
+	@Command(name = "list")
+	public void list(Player joueur){
+		// A implementer
+	}
 }

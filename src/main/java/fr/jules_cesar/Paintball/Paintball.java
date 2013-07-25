@@ -1,9 +1,14 @@
 package fr.jules_cesar.Paintball;
 
+import java.io.File;
 import java.util.Locale;
 import java.util.logging.Logger;
 
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import fr.aumgn.bukkitutils.command.CommandsRegistration;
@@ -41,5 +46,20 @@ public class Paintball extends JavaPlugin implements Listener{
 	
 	public static void setPartie(Partie p){
 		partie = p;
+	}
+	
+	public static void saveInventory(Player joueur){
+		new GsonUtil(Bukkit.getPluginManager().getPlugin("Paintball").getLogger(), Bukkit.getPluginManager().getPlugin("Paintball").getDataFolder().getPath()).ecrire(joueur.getName(), new Inventaire(joueur.getInventory()));
+		joueur.getInventory().clear();
+		joueur.getInventory().addItem(new ItemStack(332, 128));
+	}
+	
+	public static void loadInventoryIfNecessary(Player joueur){
+		if(new File("plugins/Paintball/" + joueur.getName() + ".json").exists()){
+			Inventaire inventaire = (Inventaire)new GsonUtil(Bukkit.getPluginManager().getPlugin("Paintball").getLogger(), Bukkit.getPluginManager().getPlugin("Paintball").getDataFolder().getPath()).lire(joueur.getName(), Inventory.class);
+			joueur.getInventory().setContents(inventaire.getItems());
+			joueur.getInventory().setArmorContents(inventaire.getArmor());
+			new File("plugins/Paintball/" + joueur.getName() + ".json").delete();
+		}
 	}
 }

@@ -12,7 +12,7 @@ import org.bukkit.entity.Player;
 public class Partie {
 
 	/* Partie en attente */
-	Queue<Player> attente;
+	Queue<Player> file;
 	
 	/* Partie en cours */
 	private int kill_bleu = 0;
@@ -26,7 +26,7 @@ public class Partie {
 	
 	public Partie(){
 		etat = 0;
-		attente = new LinkedList<Player>();
+		file = new LinkedList<Player>();
 	}
 	
 	/**
@@ -35,7 +35,7 @@ public class Partie {
 	 * @param equipe L'equipe du joueur
 	 */
 	public void ajouterJoueur(Player joueur, String equipe){
-		attente.add(joueur);
+		file.add(joueur);
 		if(equipe.equalsIgnoreCase("rouge")) joueurs_rouge.put(joueur, 4);
 		else if(equipe.equalsIgnoreCase("bleu")) joueurs_bleu.put(joueur, 4);
 	}
@@ -43,15 +43,17 @@ public class Partie {
 	public void demarrerPartie(){
 		etat = 1;
 		equilibrerEquipe();
-		attente = null;
+		file = new LinkedList<Player>();
 		
 		// Teleportation des joueurs
 		Set<Player> joueurs = joueurs_rouge.keySet();
-		for(Player p : joueurs)
+		for(Player p : joueurs){
 			Paintball.getArene().teleporterRouge(p);
+		}
 		joueurs = joueurs_bleu.keySet();
-		for(Player p : joueurs)
+		for(Player p : joueurs){
 			Paintball.getArene().teleporterBleu(p);
+		}
 		annoncer("La partie commence !");
 	}
 	
@@ -77,7 +79,7 @@ public class Partie {
 	 * @param joueur Le joueur a retirer
 	 */
 	public void retirerJoueur(Player joueur){
-		attente.remove(joueur);
+		file.remove(joueur);
 		if(joueurs_rouge.containsKey(joueur))
 			joueurs_rouge.remove(joueur);
 		else
@@ -111,6 +113,7 @@ public class Partie {
 	private void tuerJoueur(Player joueur, HashMap<Player, Integer> equipe, boolean naturel){
 		Paintball.getArene().teleporterSpectateur(joueur);
 		equipe.remove(joueur);
+		file.add(joueur);
 		if(naturel) annoncer(joueur.getName() + " n'a plus de vie ! Il est donc elimine.");
 		else annoncer(joueur.getName() + " est considere comme mort suite a sa deconnexion.");
 		if(nombreJoueurs() == 1) finPartie();
@@ -119,6 +122,8 @@ public class Partie {
 	public void finPartie() {
 		if(kill_bleu > kill_rouge) annoncer("L'equipe bleu gagne avec " + kill_bleu + " kills contre " + kill_rouge + " kills pour l'equipe rouge !");
 		else annoncer("L'equipe rouge gagne avec " + kill_rouge + " kills contre " + kill_bleu + " kills pour l'equipe bleu !");
+		for(Player p : file)
+			Paintball.loadInventoryIfNecessary(p);
 	}
 	
 	public int nombreJoueursBleu(){
@@ -179,17 +184,17 @@ public class Partie {
 	public void equilibrerEquipe(){
 		int difference = joueurs_rouge.size() - joueurs_bleu.size();
 		while(difference < -1){
-			while(!joueurs_bleu.containsKey(attente.peek())) attente.remove();
-			joueurs_rouge.put(attente.peek(), 4);
-			joueurs_bleu.remove(attente.peek());
-			annoncer(ChatColor.GREEN + attente.poll().getName() + ChatColor.BLUE + " passe dans l'equipe " + ChatColor.RED + "rouge " + ChatColor.BLUE + " suite a un desequilibre.");
+			while(!joueurs_bleu.containsKey(file.peek())) file.remove();
+			joueurs_rouge.put(file.peek(), 4);
+			joueurs_bleu.remove(file.peek());
+			annoncer(ChatColor.GREEN + file.poll().getName() + ChatColor.BLUE + " passe dans l'equipe " + ChatColor.RED + "rouge " + ChatColor.BLUE + " suite a un desequilibre.");
 			difference++;
 		}
 		while(difference > 1){
-			while(!joueurs_rouge.containsKey(attente.peek())) attente.remove();
-			joueurs_bleu.put(attente.peek(), 4);
-			joueurs_rouge.remove(attente.peek());
-			annoncer(ChatColor.GREEN + attente.poll().getName() + ChatColor.BLUE + " passe dans l'equipe " + ChatColor.AQUA + "bleu " + ChatColor.BLUE + " suite a un desequilibre.");
+			while(!joueurs_rouge.containsKey(file.peek())) file.remove();
+			joueurs_bleu.put(file.peek(), 4);
+			joueurs_rouge.remove(file.peek());
+			annoncer(ChatColor.GREEN + file.poll().getName() + ChatColor.BLUE + " passe dans l'equipe " + ChatColor.AQUA + "bleu " + ChatColor.BLUE + " suite a un desequilibre.");
 			difference--;
 		}
 	}
