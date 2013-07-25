@@ -49,14 +49,17 @@ public class Arene {
 	public void toucher(EntityDamageByEntityEvent event){
 		if(Paintball.getPartie() != null && Paintball.getPartie().obtenirEtat() == 1 && event.getEntityType().equals(EntityType.PLAYER) && event.getDamager().getType().equals(EntityType.SNOWBALL)){
 			Snowball boule = (Snowball) event.getDamager();
-			if(Paintball.getPartie().estJoueur((Player) event.getEntity()) && Paintball.getPartie().estJoueur((Player) boule.getShooter()))
+			if(Paintball.getPartie().estJoueur((Player) event.getEntity()) && Paintball.getPartie().estJoueur((Player) boule.getShooter())){
 				Paintball.getPartie().toucherJoueur((Player) event.getEntity(), (Player) boule.getShooter());
+				if(Paintball.getPartie().nombreJoueursBleu() == 0 || Paintball.getPartie().nombreJoueursRouge() == 0) finPartie();
+			}
 		}
 	}
 
 	public void deconnexion(Player joueur) {
 		if(Paintball.getPartie() != null && Paintball.getPartie().estPresent(joueur)){
 			Paintball.getPartie().deconnexion(joueur, (Paintball.getPartie().estJoueur(joueur)));
+			if(Paintball.getPartie().nombreJoueursBleu() == 0 || Paintball.getPartie().nombreJoueursRouge() == 0) finPartie();
 		}
 	}
 	
@@ -80,6 +83,7 @@ public class Arene {
 	}
 	
 	public void finPartie(){
+		Paintball.getPartie().finPartie();
 		Paintball.setPartie(null);
 	}
 	

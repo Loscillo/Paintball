@@ -107,7 +107,7 @@ public class Partie {
 	 * Passe le joueur en spectateur et annonce sa mort au public
 	 * @param joueur Le joueur mort
 	 */
-	public void tuerJoueur(Player joueur, HashMap<Player, Integer> equipe, boolean naturel){
+	private void tuerJoueur(Player joueur, HashMap<Player, Integer> equipe, boolean naturel){
 		Paintball.getArene().teleporterSpectateur(joueur);
 		equipe.remove(joueur);
 		if(naturel) annoncer(joueur.getName() + " n'a plus de vie ! Il est donc elimine.");
@@ -115,11 +115,19 @@ public class Partie {
 		if(nombreJoueurs() == 1) finPartie();
 	}
 	
-	private void finPartie() {
+	public void finPartie() {
 		if(kill_bleu > kill_rouge) annoncer("L'equipe bleu gagne avec " + kill_bleu + " kills contre " + kill_rouge + " kills pour l'equipe rouge !");
 		else annoncer("L'equipe rouge gagne avec " + kill_rouge + " kills contre " + kill_bleu + " kills pour l'equipe bleu !");
-		Paintball.getArene().finPartie();
 	}
+	
+	public int nombreJoueursBleu(){
+		return joueurs_bleu.size();
+	}
+	
+	public int nombreJoueursRouge(){
+		return joueurs_rouge.size();
+	}
+
 
 	public void ajouterSpectateur(Player joueur){
 		// affichage scoreboard
