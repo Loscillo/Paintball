@@ -24,7 +24,7 @@ public class Arene {
 		}
 		else{
 			Paintball.setPartie(new Partie());
-			Bukkit.getServer().broadcastMessage("Une partie de Paintball est initialise !\n/paintball join -r pour rejoindre l'equipe rouge !\n/paintballl join -b pour rejoindre l'equipe bleu !");
+			Bukkit.getServer().broadcastMessage("Une partie de Paintball est initialise !\n/paintball join -r pour rejoindre l'equipe rouge !\n/paintball join -b pour rejoindre l'equipe bleu !");
 		}
 	}
 	
