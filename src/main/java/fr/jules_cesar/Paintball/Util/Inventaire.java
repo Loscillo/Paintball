@@ -1,4 +1,4 @@
-package fr.jules_cesar.Paintball;
+package fr.jules_cesar.Paintball.Util;
 
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;

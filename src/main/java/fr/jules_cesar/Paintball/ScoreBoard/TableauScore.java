@@ -10,15 +10,14 @@ import org.bukkit.scoreboard.ScoreboardManager;
 import org.bukkit.scoreboard.Team;
 
 public class TableauScore {
-	private static ScoreboardManager manager;
-	private static Scoreboard board;
-	private static Objective objective;
-	private static Team rouge;
-	private static Team bleu;
 	
-	static{
-		manager = Bukkit.getScoreboardManager();
-		board = manager.getNewScoreboard();
+	private Scoreboard board;
+	private Objective objective;
+	private Team rouge;
+	private Team bleu;
+	
+	public TableauScore(){
+		board = Bukkit.getScoreboardManager().getNewScoreboard();
 		rouge = board.registerNewTeam("Rouge");
 		bleu = board.registerNewTeam("Bleu");
 		objective = board.registerNewObjective("Vies", "dummy");
@@ -26,11 +25,11 @@ public class TableauScore {
 		objective.setDisplayName("Vies restantes");
 	}
 	
-	public static void ajouterVueSpectateur(Player joueur){
+	public void ajouterVueSpectateur(Player joueur){
 		joueur.setScoreboard(board);
 	}
 	
-	public static void ajouterVueJoueur(Player joueur, String equipe){
+	public void ajouterVueJoueur(Player joueur, String equipe){
 		joueur.setScoreboard(board);
 		if(equipe.equalsIgnoreCase("bleu")) bleu.addPlayer(joueur);
 		else rouge.addPlayer(joueur);
@@ -38,11 +37,11 @@ public class TableauScore {
 		score.setScore(4);
 	}
 	
-	public static void retirerVue(Player joueur){
-		joueur.setScoreboard(manager.getNewScoreboard());
+	public void retirerVue(Player joueur){
+		joueur.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
 	}
 	
-	public static void enleverVie(Player joueur){
+	public void enleverVie(Player joueur){
 		Score score = objective.getScore(joueur);
 		int vie = score.getScore()-1;
 		if(vie != 0) score.setScore(score.getScore()-1);

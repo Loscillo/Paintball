@@ -1,4 +1,4 @@
-package fr.jules_cesar.Paintball;
+package fr.jules_cesar.Paintball.Util;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -12,7 +12,7 @@ import org.bukkit.Location;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import fr.jules_cesar.Paintball.TypeAdapter.*;
+import fr.jules_cesar.Paintball.Util.*;
 
 public class GsonUtil{
 

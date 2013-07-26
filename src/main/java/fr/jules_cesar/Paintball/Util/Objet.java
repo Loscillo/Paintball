@@ -1,4 +1,4 @@
-package fr.jules_cesar.Paintball;
+package fr.jules_cesar.Paintball.Util;
 
 import java.util.ArrayList;
 import java.util.Map;

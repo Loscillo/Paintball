@@ -1,4 +1,4 @@
-package fr.jules_cesar.Paintball.TypeAdapter;
+package fr.jules_cesar.Paintball.Util;
 
 import java.io.IOException;
 

@@ -24,10 +24,12 @@ public class Partie {
 	/* Autre */
 	private short etat;
 	private ArrayList<Player> liste_spectateurs = new ArrayList<Player>();
+	private TableauScore tableau;
 	
 	public Partie(){
 		etat = 0;
 		file = new Stack<Player>();
+		tableau = new TableauScore();
 	}
 	
 	/**
@@ -50,13 +52,13 @@ public class Partie {
 		Set<Player> joueurs = joueurs_rouge.keySet();
 		for(Player p : joueurs){
 			Paintball.getArene().teleporterRouge(p);
-			TableauScore.ajouterVueJoueur(p, "rouge");
+			tableau.ajouterVueJoueur(p, "rouge");
 			Paintball.saveInventory(p);
 		}
 		joueurs = joueurs_bleu.keySet();
 		for(Player p : joueurs){
 			Paintball.getArene().teleporterBleu(p);
-			TableauScore.ajouterVueJoueur(p, "bleu");
+			tableau.ajouterVueJoueur(p, "bleu");
 			Paintball.saveInventory(p);
 		}
 		annoncer("La partie commence !");
@@ -108,7 +110,7 @@ public class Partie {
 			joueurs_bleu.put(joueur, joueurs_bleu.get(joueur) - 1);
 			if(joueurs_bleu.get(joueur) == 0) tuerJoueur(joueur, true);
 		}
-		TableauScore.enleverVie(joueur);
+		tableau.enleverVie(joueur);
 	}
 	
 	/**
@@ -143,7 +145,7 @@ public class Partie {
 	public void ajouterSpectateur(Player joueur){
 		// affichage scoreboard
 		// Paintball.getArene().teleporterSpectateur(joueur);
-		TableauScore.ajouterVueSpectateur(joueur);
+		tableau.ajouterVueSpectateur(joueur);
 		liste_spectateurs.add(joueur);
 	}
 	
@@ -207,6 +209,6 @@ public class Partie {
 
 	public void retirerSpectateur(Player joueur) {
 		liste_spectateurs.remove(joueur);
-		TableauScore.retirerVue(joueur);
+		tableau.retirerVue(joueur);
 	}
 }
