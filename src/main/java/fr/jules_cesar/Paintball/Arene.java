@@ -51,6 +51,7 @@ public class Arene {
 			Snowball boule = (Snowball) event.getDamager();
 			if(Paintball.getPartie().estJoueur((Player) event.getEntity()) && Paintball.getPartie().estJoueur((Player) boule.getShooter())){
 				Paintball.getPartie().toucherJoueur((Player) event.getEntity(), (Player) boule.getShooter());
+				event.setCancelled(true);
 				if(Paintball.getPartie().nombreJoueursBleu() == 0 || Paintball.getPartie().nombreJoueursRouge() == 0) finPartie();
 			}
 		}

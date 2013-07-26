@@ -98,15 +98,12 @@ public class PaintballCommands implements Commands{
 	
 	@Command(name = "save")
 	public void save(Player joueur){
-		new GsonUtil(plugin.getLogger(), plugin.getDataFolder().getPath()).ecrire(joueur.getName(), new Inventaire(joueur.getInventory()));
-		joueur.getInventory().clear();
+		Paintball.saveInventory(joueur);
 	}
 	
 	@Command(name = "load")
 	public void load(Player joueur){
-		Inventaire inventaire = (Inventaire) new GsonUtil(plugin.getLogger(), plugin.getDataFolder().getPath()).lire(joueur.getName(), Inventaire.class);
-		joueur.getInventory().setContents(inventaire.getItems());
-		joueur.getInventory().setArmorContents(inventaire.getArmor());
+		Paintball.loadInventoryIfNecessary(joueur);
 	}
 	
 	@Command(name = "list")

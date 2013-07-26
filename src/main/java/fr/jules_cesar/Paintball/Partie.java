@@ -44,18 +44,20 @@ public class Partie {
 	public void demarrerPartie(){
 		etat = 1;
 		equilibrerEquipe();
-		file = new Stack<Player>();
+		file = null;
 		
 		// Teleportation des joueurs
 		Set<Player> joueurs = joueurs_rouge.keySet();
 		for(Player p : joueurs){
 			Paintball.getArene().teleporterRouge(p);
 			TableauScore.ajouterVueJoueur(p, "rouge");
+			Paintball.saveInventory(p);
 		}
 		joueurs = joueurs_bleu.keySet();
 		for(Player p : joueurs){
 			Paintball.getArene().teleporterBleu(p);
 			TableauScore.ajouterVueJoueur(p, "bleu");
+			Paintball.saveInventory(p);
 		}
 		annoncer("La partie commence !");
 	}
@@ -117,16 +119,14 @@ public class Partie {
 		equipe.remove(joueur);
 		Paintball.getArene().teleporterSpectateur(joueur);
 		ajouterSpectateur(joueur);
-		file.push(joueur);
 		if(naturel) annoncer(joueur.getName() + " n'a plus de vie ! Il est donc elimine.");
 		else annoncer(joueur.getName() + " est considere comme mort suite a sa deconnexion.");
+		Paintball.loadInventoryIfNecessary(joueur);
 	}
 	
 	public void finPartie() {
 		if(kill_bleu > kill_rouge) annoncer("L'equipe bleu gagne avec " + kill_bleu + " kills contre " + kill_rouge + " kills pour l'equipe rouge !");
 		else annoncer("L'equipe rouge gagne avec " + kill_rouge + " kills contre " + kill_bleu + " kills pour l'equipe bleu !");
-		for(Player p : file)
-			Paintball.loadInventoryIfNecessary(p);
 	}
 	
 	public int nombreJoueursBleu(){
