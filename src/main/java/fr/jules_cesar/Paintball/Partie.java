@@ -129,7 +129,7 @@ public class Partie {
 	public void finPartie() {
 		if(kill_bleu > kill_rouge) annoncer("L'equipe bleu gagne avec " + kill_bleu + " kills contre " + kill_rouge + " kills pour l'equipe rouge !");
 		else annoncer("L'equipe rouge gagne avec " + kill_rouge + " kills contre " + kill_bleu + " kills pour l'equipe bleu !");
-		for(Player p : liste_spectateurs)
+		for(Player p : liste_spectateurs.clone())
 			retirerSpectateur(p);
 	}
 	
