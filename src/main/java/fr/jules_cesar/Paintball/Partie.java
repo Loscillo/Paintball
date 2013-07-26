@@ -116,7 +116,6 @@ public class Partie {
 		file.push(joueur);
 		if(naturel) annoncer(joueur.getName() + " n'a plus de vie ! Il est donc elimine.");
 		else annoncer(joueur.getName() + " est considere comme mort suite a sa deconnexion.");
-		if(nombreJoueurs() == 1) finPartie();
 	}
 	
 	public void finPartie() {
