@@ -7,25 +7,43 @@ import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
+import org.bukkit.scoreboard.Team;
 
 public class TableauScore {
-	public static ScoreboardManager manager;
-	public static Scoreboard board;
-	public static Score score;
-	public static Objective objective;
+	private static ScoreboardManager manager;
+	private static Scoreboard board;
+	private static Objective objective;
+	private static Team rouge;
+	private static Team bleu;
 	
 	static{
 		manager = Bukkit.getScoreboardManager();
 		board = manager.getNewScoreboard();
-		objective = board.registerNewObjective("lives", "dummy");
+		rouge = board.registerNewTeam("Rouge");
+		bleu = board.registerNewTeam("Bleu");
+		objective = board.registerNewObjective("Vies", "dummy");
 		objective.setDisplaySlot(DisplaySlot.SIDEBAR);
 		objective.setDisplayName("Classement");
 	}
 	
-	public static void ajouterVue(Player joueur){
+	public static void ajouterVueSpectateur(Player joueur){
 		joueur.setScoreboard(board);
-		System.out.println("ajout");
 	}
 	
+	public static void ajouterVueJoueur(Player joueur, String equipe){
+		joueur.setScoreboard(board);
+		if(equipe.equalsIgnoreCase("bleu")) bleu.addPlayer(joueur);
+		else rouge.addPlayer(joueur);
+		Score score = objective.getScore(joueur);
+		score.setScore(4);
+	}
 	
+	public static void retirerVue(Player joueur){
+		joueur.setScoreboard(manager.getNewScoreboard());
+	}
+	
+	public static void enleverVie(Player joueur){
+		Score score = objective.getScore(joueur);
+		score.setScore(score.getScore()-1);
+	}
 }

@@ -8,6 +8,8 @@ import java.util.Stack;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
+import fr.jules_cesar.Paintball.ScoreBoard.TableauScore;
+
 public class Partie {
 
 	/* Partie en attente */
@@ -48,10 +50,12 @@ public class Partie {
 		Set<Player> joueurs = joueurs_rouge.keySet();
 		for(Player p : joueurs){
 			Paintball.getArene().teleporterRouge(p);
+			TableauScore.ajouterVueJoueur(p, "rouge");
 		}
 		joueurs = joueurs_bleu.keySet();
 		for(Player p : joueurs){
 			Paintball.getArene().teleporterBleu(p);
+			TableauScore.ajouterVueJoueur(p, "bleu");
 		}
 		annoncer("La partie commence !");
 	}
