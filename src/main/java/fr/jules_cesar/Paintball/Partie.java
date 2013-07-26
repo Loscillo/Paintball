@@ -80,7 +80,7 @@ public class Partie {
 	}
 	
 	/**
-	 * Retire un joueur du jeu si il quitte le serveur
+	 * Retire un joueur du jeu
 	 * @param joueur Le joueur a retirer
 	 */
 	public void retirerJoueur(Player joueur){
@@ -101,22 +101,22 @@ public class Partie {
 		if(joueurs_rouge.containsKey(joueur)){
 			kill_bleu++;
 			joueurs_rouge.put(joueur, joueurs_rouge.get(joueur) - 1);
-			if(joueurs_rouge.get(joueur) == 0) tuerJoueur(joueur, joueurs_rouge, true);
+			if(joueurs_rouge.get(joueur) == 0) tuerJoueur(joueur, true);
 		}
 		else{
 			kill_rouge++;
 			joueurs_bleu.put(joueur, joueurs_bleu.get(joueur) - 1);
-			if(joueurs_bleu.get(joueur) == 0) tuerJoueur(joueur, joueurs_bleu, true);
+			if(joueurs_bleu.get(joueur) == 0) tuerJoueur(joueur, true);
 		}
-		joueur.setHealth(10);
+		TableauScore.enleverVie(joueur);
 	}
 	
 	/**
 	 * Passe le joueur en spectateur et annonce sa mort au public
 	 * @param joueur Le joueur mort
 	 */
-	private void tuerJoueur(Player joueur, HashMap<Player, Integer> equipe, boolean naturel){
-		equipe.remove(joueur);
+	private void tuerJoueur(Player joueur, boolean naturel){
+		retirerJoueur(joueur);
 		Paintball.getArene().teleporterSpectateur(joueur);
 		ajouterSpectateur(joueur);
 		if(naturel) annoncer(joueur.getName() + " n'a plus de vie ! Il est donc elimine.");
@@ -167,11 +167,11 @@ public class Partie {
 		else{
 			if(joueurs_rouge.containsKey(player)){
 				kill_bleu += joueurs_rouge.remove(player);
-				tuerJoueur(player, joueurs_rouge, false);
+				tuerJoueur(player, false);
 			}
 			else{
 				kill_rouge += joueurs_bleu.remove(player);
-				tuerJoueur(player, joueurs_bleu, false);
+				tuerJoueur(player, false);
 			}
 		}
 	}

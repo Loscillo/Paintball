@@ -23,7 +23,7 @@ public class TableauScore {
 		bleu = board.registerNewTeam("Bleu");
 		objective = board.registerNewObjective("Vies", "dummy");
 		objective.setDisplaySlot(DisplaySlot.SIDEBAR);
-		objective.setDisplayName("Classement");
+		objective.setDisplayName("Vies restantes");
 	}
 	
 	public static void ajouterVueSpectateur(Player joueur){
@@ -44,6 +44,11 @@ public class TableauScore {
 	
 	public static void enleverVie(Player joueur){
 		Score score = objective.getScore(joueur);
-		score.setScore(score.getScore()-1);
+		int vie = score.getScore()-1;
+		if(vie != 0) score.setScore(score.getScore()-1);
+		else{
+			rouge.removePlayer(joueur);
+			bleu.removePlayer(joueur);
+		}
 	}
 }
