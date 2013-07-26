@@ -119,7 +119,7 @@ public class Arene {
 			if(!p.estPresent(joueur)) throw new PlayerNotInGame();
 			else if(p.estJoueur(joueur)){
 				if(p.obtenirEtat() != 0) throw new ArenaAlreadyInGame();
-				p.retirerJoueur(joueur);
+				p.retirerJoueur(joueur, true);
 			}
 			else p.retirerSpectateur(joueur);
 		}

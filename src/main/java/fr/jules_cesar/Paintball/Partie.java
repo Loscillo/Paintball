@@ -83,8 +83,8 @@ public class Partie {
 	 * Retire un joueur du jeu
 	 * @param joueur Le joueur a retirer
 	 */
-	public void retirerJoueur(Player joueur){
-		file.remove(joueur);
+	public void retirerJoueur(Player joueur, boolean join){
+		if(join) file.remove(joueur);
 		if(joueurs_rouge.containsKey(joueur))
 			joueurs_rouge.remove(joueur);
 		else
@@ -116,7 +116,7 @@ public class Partie {
 	 * @param joueur Le joueur mort
 	 */
 	private void tuerJoueur(Player joueur, boolean naturel){
-		retirerJoueur(joueur);
+		retirerJoueur(joueur, false);
 		Paintball.getArene().teleporterSpectateur(joueur);
 		ajouterSpectateur(joueur);
 		if(naturel) annoncer(joueur.getName() + " n'a plus de vie ! Il est donc elimine.");
