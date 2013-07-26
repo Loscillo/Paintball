@@ -127,6 +127,8 @@ public class Partie {
 	public void finPartie() {
 		if(kill_bleu > kill_rouge) annoncer("L'equipe bleu gagne avec " + kill_bleu + " kills contre " + kill_rouge + " kills pour l'equipe rouge !");
 		else annoncer("L'equipe rouge gagne avec " + kill_rouge + " kills contre " + kill_bleu + " kills pour l'equipe bleu !");
+		for(Player p : liste_spectateurs)
+			retirerSpectateur(p);
 	}
 	
 	public int nombreJoueursBleu(){
@@ -141,6 +143,7 @@ public class Partie {
 	public void ajouterSpectateur(Player joueur){
 		// affichage scoreboard
 		// Paintball.getArene().teleporterSpectateur(joueur);
+		TableauScore.ajouterVueSpectateur(joueur);
 		liste_spectateurs.add(joueur);
 	}
 	
@@ -159,7 +162,7 @@ public class Partie {
 
 	public void deconnexion(Player player, boolean joueur) {
 		if(!joueur)
-			liste_spectateurs.remove(player);
+			retirerSpectateur(player);
 		else if(this.etat == 0){
 			if(joueurs_rouge.containsKey(player)) joueurs_rouge.remove(player);
 			else joueurs_bleu.remove(player);
@@ -204,5 +207,6 @@ public class Partie {
 
 	public void retirerSpectateur(Player joueur) {
 		liste_spectateurs.remove(joueur);
+		TableauScore.retirerVue(joueur);
 	}
 }
