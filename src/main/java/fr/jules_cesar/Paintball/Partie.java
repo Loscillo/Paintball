@@ -2,9 +2,8 @@ package fr.jules_cesar.Paintball;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.Set;
+import java.util.Stack;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -12,7 +11,7 @@ import org.bukkit.entity.Player;
 public class Partie {
 
 	/* Partie en attente */
-	Queue<Player> file;
+	Stack<Player> file;
 	
 	/* Partie en cours */
 	private int kill_bleu = 0;
@@ -26,7 +25,7 @@ public class Partie {
 	
 	public Partie(){
 		etat = 0;
-		file = new LinkedList<Player>();
+		file = new Stack<Player>();
 	}
 	
 	/**
@@ -35,7 +34,7 @@ public class Partie {
 	 * @param equipe L'equipe du joueur
 	 */
 	public void ajouterJoueur(Player joueur, String equipe){
-		file.add(joueur);
+		file.push(joueur);
 		if(equipe.equalsIgnoreCase("rouge")) joueurs_rouge.put(joueur, 4);
 		else if(equipe.equalsIgnoreCase("bleu")) joueurs_bleu.put(joueur, 4);
 	}
@@ -43,7 +42,7 @@ public class Partie {
 	public void demarrerPartie(){
 		etat = 1;
 		equilibrerEquipe();
-		file = new LinkedList<Player>();
+		file = new Stack<Player>();
 		
 		// Teleportation des joueurs
 		Set<Player> joueurs = joueurs_rouge.keySet();
@@ -114,7 +113,7 @@ public class Partie {
 		equipe.remove(joueur);
 		Paintball.getArene().teleporterSpectateur(joueur);
 		ajouterSpectateur(joueur);
-		file.add(joueur);
+		file.push(joueur);
 		if(naturel) annoncer(joueur.getName() + " n'a plus de vie ! Il est donc elimine.");
 		else annoncer(joueur.getName() + " est considere comme mort suite a sa deconnexion.");
 		if(nombreJoueurs() == 1) finPartie();
@@ -185,17 +184,17 @@ public class Partie {
 	public void equilibrerEquipe(){
 		int difference = joueurs_rouge.size() - joueurs_bleu.size();
 		while(difference < -1){
-			while(!joueurs_bleu.containsKey(file.peek())) file.remove();
+			while(!joueurs_bleu.containsKey(file.peek())) file.pop();
 			joueurs_rouge.put(file.peek(), 4);
 			joueurs_bleu.remove(file.peek());
-			annoncer(ChatColor.GREEN + file.poll().getName() + ChatColor.BLUE + " passe dans l'equipe " + ChatColor.RED + "rouge " + ChatColor.BLUE + " suite a un desequilibre.");
+			annoncer(ChatColor.GREEN + file.pop().getName() + ChatColor.BLUE + " passe dans l'equipe " + ChatColor.RED + "rouge " + ChatColor.BLUE + " suite a un desequilibre.");
 			difference++;
 		}
 		while(difference > 1){
-			while(!joueurs_rouge.containsKey(file.peek())) file.remove();
+			while(!joueurs_rouge.containsKey(file.peek())) file.pop();
 			joueurs_bleu.put(file.peek(), 4);
 			joueurs_rouge.remove(file.peek());
-			annoncer(ChatColor.GREEN + file.poll().getName() + ChatColor.BLUE + " passe dans l'equipe " + ChatColor.AQUA + "bleu " + ChatColor.BLUE + " suite a un desequilibre.");
+			annoncer(ChatColor.GREEN + file.pop().getName() + ChatColor.BLUE + " passe dans l'equipe " + ChatColor.AQUA + "bleu " + ChatColor.BLUE + " suite a un desequilibre.");
 			difference--;
 		}
 	}
