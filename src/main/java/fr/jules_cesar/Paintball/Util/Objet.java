@@ -47,7 +47,7 @@ public class Objet {
 			Map<String, Double> enchantements = (Map<String, Double>) args.get("enchants");
 			Set<String> liste = enchantements.keySet();
 			for(String e : liste)
-				meta.addEnchant(Enchantment.getByName(e), enchantements.get(e).intValue(), false);
+				meta.addEnchant(Enchantment.getByName(e), enchantements.get(e).intValue(), true);
 		}
 		return meta;
 	}
