@@ -129,7 +129,22 @@ public class Partie {
 	public void finPartie() {
 		if(kill_bleu > kill_rouge) annoncer("L'equipe bleu gagne avec " + kill_bleu + " kills contre " + kill_rouge + " kills pour l'equipe rouge !");
 		else annoncer("L'equipe rouge gagne avec " + kill_rouge + " kills contre " + kill_bleu + " kills pour l'equipe bleu !");
-		for(Player p : liste_spectateurs.clone())
+		if(joueurs_bleu.size() != 0){
+			for(Player p : joueurs_bleu.keySet()){
+				Paintball.getArene().teleporterSpectateur(p);
+				Paintball.loadInventoryIfNecessary(p);
+				tableau.retirerVue(p);
+			}
+		}
+		else{
+			for(Player p : joueurs_rouge.keySet()){
+				Paintball.getArene().teleporterSpectateur(p);
+				Paintball.loadInventoryIfNecessary(p);
+				tableau.retirerVue(p);
+			}
+		}
+		ArrayList<Player> spec = (ArrayList<Player>) liste_spectateurs.clone();
+		for(Player p : spec)
 			retirerSpectateur(p);
 	}
 	

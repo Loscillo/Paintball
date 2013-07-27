@@ -44,10 +44,7 @@ public class TableauScore {
 	public void enleverVie(Player joueur){
 		Score score = objective.getScore(joueur);
 		int vie = score.getScore()-1;
-		if(vie != 0) score.setScore(score.getScore()-1);
-		else{
-			rouge.removePlayer(joueur);
-			bleu.removePlayer(joueur);
-		}
+		if(vie != 0) score.setScore(vie);
+		else board.resetScores(joueur);
 	}
 }
