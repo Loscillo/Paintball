@@ -1,24 +1,25 @@
 package fr.jules_cesar.Paintball;
 
-import java.util.logging.Logger;
-
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-import fr.aumgn.bukkitutils.command.Commands;
 import fr.aumgn.bukkitutils.command.Command;
+import fr.aumgn.bukkitutils.command.Commands;
 import fr.aumgn.bukkitutils.command.NestedCommands;
 import fr.aumgn.bukkitutils.command.args.CommandArgs;
-
-import fr.jules_cesar.Paintball.Exception.*;
+import fr.jules_cesar.Paintball.Exception.ArenaAlreadyInGame;
+import fr.jules_cesar.Paintball.Exception.ArenaMissingPlayers;
+import fr.jules_cesar.Paintball.Exception.ArenaNotInitialized;
+import fr.jules_cesar.Paintball.Exception.ArenaNotSet;
+import fr.jules_cesar.Paintball.Exception.PlayerAlreadyInGame;
+import fr.jules_cesar.Paintball.Exception.PlayerNotInGame;
 
 @NestedCommands("paintball")
 public class PaintballCommands implements Commands{
 
-	private Paintball plugin;
-	
-	public PaintballCommands(Paintball p){
-		this.plugin = p;
+	@Command(name = "aide")
+	public void aide(Player joueur){
+		joueur.chat("/help shop");
 	}
 	
 	@Command(name = "init")

@@ -22,7 +22,7 @@ public class Paintball extends JavaPlugin implements Listener{
 	
 	public void onEnable(){
 		// Events
-		getServer().getPluginManager().registerEvents(new PaintballListener(this), this);
+		getServer().getPluginManager().registerEvents(new PaintballListener(), this);
 		
 		// Configuration
 		if(!this.getDataFolder().exists()) this.getDataFolder().mkdir();
@@ -30,7 +30,7 @@ public class Paintball extends JavaPlugin implements Listener{
 
 		// Commandes
 		CommandsRegistration register = new CommandsRegistration(this, Locale.FRANCE);
-		register.register(new PaintballCommands(this));
+		register.register(new PaintballCommands());
 	}
 	
 	public void onDisable(){

@@ -30,6 +30,10 @@ commands:
         permission: paintball.admin    
         
     # Commandes joueur
+    "paintball aide":
+        description: "Obtenir l'aide du plugin"
+        permission: paintball.joueur
+        
     "paintball init":
         description: "Initialise une partie de paintball"
         permission: paintball.joueur

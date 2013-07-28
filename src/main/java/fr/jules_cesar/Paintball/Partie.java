@@ -126,6 +126,7 @@ public class Partie {
 		Paintball.loadInventoryIfNecessary(joueur);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void finPartie() {
 		if(kill_bleu > kill_rouge) annoncer("L'equipe bleu gagne avec " + kill_bleu + " kills contre " + kill_rouge + " kills pour l'equipe rouge !");
 		else annoncer("L'equipe rouge gagne avec " + kill_rouge + " kills contre " + kill_bleu + " kills pour l'equipe bleu !");
@@ -158,8 +159,7 @@ public class Partie {
 
 
 	public void ajouterSpectateur(Player joueur){
-		// affichage scoreboard
-		// Paintball.getArene().teleporterSpectateur(joueur);
+		joueur.setAllowFlight(true);
 		tableau.ajouterVueSpectateur(joueur);
 		liste_spectateurs.add(joueur);
 	}
@@ -223,6 +223,7 @@ public class Partie {
 	}
 
 	public void retirerSpectateur(Player joueur) {
+		joueur.setAllowFlight(false);
 		liste_spectateurs.remove(joueur);
 		tableau.retirerVue(joueur);
 	}
