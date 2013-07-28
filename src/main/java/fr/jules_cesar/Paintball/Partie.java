@@ -225,7 +225,6 @@ public class Partie {
 			while(!joueurs_bleu.containsKey(file.peek())) file.pop();
 			joueurs_rouge.put(file.peek(), 4);
 			joueurs_bleu.remove(file.peek());
-			annoncer(ChatColor.GREEN + file.pop().getName() + ChatColor.BLUE + " passe dans l'equipe " + ChatColor.RED + "rouge " + ChatColor.BLUE + " suite a un desequilibre.");
 			annoncer(Paintball.messages.get("game.transfer.red", file.pop().getName()));
 			difference++;
 		}
