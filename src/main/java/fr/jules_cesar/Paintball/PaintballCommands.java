@@ -1,6 +1,5 @@
 package fr.jules_cesar.Paintball;
 
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import fr.aumgn.bukkitutils.command.Command;
@@ -27,8 +26,8 @@ public class PaintballCommands implements Commands{
 		try{
 			Paintball.getArene().initialiserPartie(joueur);
 		}
-		catch(ArenaNotSet e){ joueur.sendMessage(ChatColor.RED + "L'arene n'est pas configure."); }
-		catch(ArenaAlreadyInGame e){ joueur.sendMessage(ChatColor.RED + "Une partie est deja en cours."); }
+		catch(ArenaNotSet e){ joueur.sendMessage(Paintball.messages.get("arena.notset")); }
+		catch(ArenaAlreadyInGame e){ joueur.sendMessage(Paintball.messages.get("game.already")); }
 	}
 	
 	@Command(name = "join", flags = "br", min = 0, max = 1)
@@ -39,15 +38,15 @@ public class PaintballCommands implements Commands{
 			else if(args.length() != 0){
 				if(args.get(0).equalsIgnoreCase("bleu")) Paintball.getArene().rejoindrePartie(joueur, "bleu");
 				else if(args.get(0).equalsIgnoreCase("rouge")) Paintball.getArene().rejoindrePartie(joueur, "rouge");
-				else joueur.sendMessage(ChatColor.RED + "Vous devez choisir une equipe !");
+				else joueur.sendMessage(Paintball.messages.get("command.noteam"));
 			}
 			else{
-				joueur.sendMessage(ChatColor.RED + "Vous devez choisir une equipe !");
+				joueur.sendMessage(Paintball.messages.get("command.noset"));
 			}
 		}
-		catch(ArenaNotSet e){ joueur.sendMessage(ChatColor.RED + "L'arene n'est pas configure."); }
-		catch(ArenaAlreadyInGame e){ joueur.sendMessage(ChatColor.RED + "Une partie est deja en cours."); }
-		catch(PlayerAlreadyInGame e){ joueur.sendMessage(ChatColor.RED + "Vous etes deja dans la partie !"); }
+		catch(ArenaNotSet e){ joueur.sendMessage(Paintball.messages.get("arena.notset")); }
+		catch(ArenaAlreadyInGame e){ joueur.sendMessage(Paintball.messages.get("game.already")); }
+		catch(PlayerAlreadyInGame e){ joueur.sendMessage(Paintball.messages.get("player.already")); }
 	}
 	
 	@Command(name = "start")
@@ -56,15 +55,15 @@ public class PaintballCommands implements Commands{
 			Paintball.getArene().demarrerPartie(joueur);
 		}
 		catch (ArenaNotInitialized e) {
-			joueur.sendMessage("Aucune partie n'est initialise. Utilisez /paintball init pour initialiser l'arene.");
+			joueur.sendMessage(Paintball.messages.get("init.no"));
 		}
 		catch (ArenaAlreadyInGame e) {
-			joueur.sendMessage("Une partie est deja en cours, vous ne pouvez pas en demarrer une !");
+			joueur.sendMessage(Paintball.messages.get("game.already"));
 		}
 		catch (ArenaMissingPlayers e) {
-			joueur.sendMessage("Il faut au minimum deux joueurs pour demarrer la partie.");
+			joueur.sendMessage(Paintball.messages.get("game.minplayer"));
 		} catch (PlayerNotInGame e) {
-			joueur.sendMessage("Seul les joueurs peuvent demarrer la partie.");
+			joueur.sendMessage(Paintball.messages.get("game.noplayer"));
 		}
 	}
 	
@@ -73,37 +72,37 @@ public class PaintballCommands implements Commands{
 		try {
 			Paintball.getArene().rejoindreSpectateurs(joueur);
 		}
-		catch(ArenaNotSet e){ joueur.sendMessage(ChatColor.RED + "L'arene n'est pas configure."); }
-		catch (ArenaNotInitialized e) { joueur.sendMessage(ChatColor.RED + "Il n'y a aucune partie en cours."); }
-		catch (PlayerAlreadyInGame e) { joueur.sendMessage(ChatColor.RED + "Vous ne pouvez pas etre spectateur en etant deja joueur !"); }
+		catch(ArenaNotSet e){ joueur.sendMessage(Paintball.messages.get("arena.notset")); }
+		catch (ArenaNotInitialized e) { joueur.sendMessage(Paintball.messages.get("init.no")); }
+		catch (PlayerAlreadyInGame e) { joueur.sendMessage(Paintball.messages.get("player.already")); }
 	}
 	
 	@Command(name = "setbleu")
 	public void setBleu(Player joueur){
 		Paintball.getArene().setBleu(joueur.getLocation());
-		joueur.sendMessage("Le point bleu est mis a jour.");
+		joueur.sendMessage(Paintball.messages.get("arena.setblue"));
 	}
 	
 	@Command(name = "setrouge")
 	public void setRouge(Player joueur){
 		Paintball.getArene().setRouge(joueur.getLocation());
-		joueur.sendMessage("Le point rouge est mis a jour.");
+		joueur.sendMessage(Paintball.messages.get("arena.setred"));
 	}
 	
 	@Command(name = "setspectateur")
 	public void setSpectateur(Player joueur){
 		Paintball.getArene().setSpectateur(joueur.getLocation());
-		joueur.sendMessage("Le point spectateur est mis a jour.");
+		joueur.sendMessage(Paintball.messages.get("arena.setspectator"));
 	}
 	
 	@Command(name = "quitter")
 	public void quitter(Player joueur){
 		try {
 			Paintball.getArene().quitter(joueur);
-			joueur.sendMessage("Vous venez de quitter le paintball.");
+			joueur.sendMessage(Paintball.messages.get("game.quit"));
 		}
-		catch (PlayerNotInGame e) { joueur.sendMessage("Vous n'etes pas dans l'arene."); }
-		catch (ArenaAlreadyInGame e) { joueur.sendMessage("Vous ne pouvez pas quitter l'arene en cours de partie."); }
+		catch (PlayerNotInGame e) { joueur.sendMessage(Paintball.messages.get("player.no")); }
+		catch (ArenaAlreadyInGame e) { joueur.sendMessage(Paintball.messages.get("player.alreadyingame")); }
 	}
 	
 	@Command(name = "save")

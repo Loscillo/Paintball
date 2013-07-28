@@ -1,7 +1,6 @@
 package fr.jules_cesar.Paintball;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -20,7 +19,7 @@ public class Arene {
 		if(bleu == null || rouge == null || spectateur == null) throw new ArenaNotSet();
 		else if(Paintball.getPartie() != null){
 			if(Paintball.getPartie().obtenirEtat() == 1) throw new ArenaAlreadyInGame();
-			else joueur.sendMessage("L'arene est deja initialise. Tu peut rejoindre la partie avec /paintball join r/b");
+			else joueur.sendMessage(Paintball.messages.get("init.already"));
 		}
 		else{
 			Paintball.setPartie(new Partie());
@@ -34,8 +33,8 @@ public class Arene {
 		if(Paintball.getPartie().estJoueur(joueur)) throw new PlayerAlreadyInGame();
 		joueur.teleport(spectateur);
 		Paintball.getPartie().ajouterJoueur(joueur, equipe);
-		Paintball.getPartie().annoncer(ChatColor.GREEN + joueur.getName() + ChatColor.BLUE + " a rejoint l'equipe " + (equipe.equalsIgnoreCase("bleu")?ChatColor.AQUA:ChatColor.RED) + equipe);
-		
+		if(equipe.equalsIgnoreCase("rouge")) Paintball.getPartie().annoncer(Paintball.messages.get("game.join.red", joueur.getName()));
+		else Paintball.getPartie().annoncer(Paintball.messages.get("game.join.blue", joueur.getName()));
 	}
 	
 	public void demarrerPartie(Player joueur) throws ArenaNotInitialized, ArenaAlreadyInGame, ArenaMissingPlayers, PlayerNotInGame{

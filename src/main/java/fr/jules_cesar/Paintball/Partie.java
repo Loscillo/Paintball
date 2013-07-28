@@ -61,7 +61,7 @@ public class Partie {
 			tableau.ajouterVueJoueur(p, "bleu");
 			Paintball.saveInventory(p, 'b');
 		}
-		annoncer("La partie commence !");
+		annoncer(Paintball.messages.get("game.start"));
 	}
 	
 	/**
@@ -137,14 +137,14 @@ public class Partie {
 		retirerJoueur(joueur, false);
 		Paintball.getArene().teleporterSpectateur(joueur);
 		ajouterSpectateur(joueur);
-		if(!naturel) annoncer(joueur.getName() + " est considere comme mort suite a sa deconnexion.");
+		if(!naturel) annoncer(Paintball.messages.get("game.disconnect", joueur.getName()));
 		Paintball.loadInventoryIfNecessary(joueur);
 	}
 	
 	@SuppressWarnings("unchecked")
 	public void finPartie() {
-		if(kill_bleu > kill_rouge) annoncer("L'equipe bleu gagne avec " + kill_bleu + " kills contre " + kill_rouge + " kills pour l'equipe rouge !");
-		else annoncer("L'equipe rouge gagne avec " + kill_rouge + " kills contre " + kill_bleu + " kills pour l'equipe bleu !");
+		if(kill_bleu > kill_rouge) annoncer(Paintball.messages.get("game.victory.blue", kill_bleu, kill_rouge));
+		else annoncer(Paintball.messages.get("game.victory.red", kill_rouge, kill_bleu));
 		if(joueurs_bleu.size() != 0){
 			for(Player p : joueurs_bleu.keySet()){
 				Paintball.getArene().teleporterSpectateur(p);
@@ -226,13 +226,14 @@ public class Partie {
 			joueurs_rouge.put(file.peek(), 4);
 			joueurs_bleu.remove(file.peek());
 			annoncer(ChatColor.GREEN + file.pop().getName() + ChatColor.BLUE + " passe dans l'equipe " + ChatColor.RED + "rouge " + ChatColor.BLUE + " suite a un desequilibre.");
+			annoncer(Paintball.messages.get("game.transfer.red", file.pop().getName()));
 			difference++;
 		}
 		while(difference > 1){
 			while(!joueurs_rouge.containsKey(file.peek())) file.pop();
 			joueurs_bleu.put(file.peek(), 4);
 			joueurs_rouge.remove(file.peek());
-			annoncer(ChatColor.GREEN + file.pop().getName() + ChatColor.BLUE + " passe dans l'equipe " + ChatColor.AQUA + "bleu " + ChatColor.BLUE + " suite a un desequilibre.");
+			annoncer(Paintball.messages.get("game.transfer.blue", file.pop().getName()));
 			difference--;
 		}
 	}
