@@ -106,6 +106,11 @@ public class PaintballCommands implements Commands{
 		catch (ArenaAlreadyInGame e) { joueur.sendMessage("Vous ne pouvez pas quitter l'arene en cours de partie."); }
 	}
 	
+	@Command(name = "save")
+	public void save(Player joueur){
+		Paintball.saveInventory(joueur, 'r');
+	}
+	
 	@Command(name = "load")
 	public void load(Player joueur){
 		Paintball.loadInventoryIfNecessary(joueur);

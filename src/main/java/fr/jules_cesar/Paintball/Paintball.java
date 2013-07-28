@@ -55,7 +55,7 @@ public class Paintball extends JavaPlugin implements Listener{
 
 	public static void loadInventoryIfNecessary(Player joueur){
 		if(new File("plugins/Paintball/inventories/" + joueur.getName() + ".json").exists()){
-			Inventaire inventaire = (Inventaire) new GsonUtil().lire(joueur.getName(), Inventaire.class);
+			Inventaire inventaire = (Inventaire) new GsonUtil().lire("/inventories/" + joueur.getName(), Inventaire.class);
 			joueur.getInventory().setContents(inventaire.getItems());
 			joueur.getInventory().setArmorContents(inventaire.getArmor());
 			new File("plugins/Paintball/inventories/" + joueur.getName() + ".json").delete();
