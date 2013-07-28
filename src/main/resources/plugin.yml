@@ -54,10 +54,6 @@ commands:
     "paintball quitter":
         description: "Assistez a une partie de paintball"
         permission: paintball.joueur
-        
-    "paintball list":
-        description: "Obtenir la liste des joueurs de la partie en cours"
-        permission: paintball.joueur
     
     
 permissions:

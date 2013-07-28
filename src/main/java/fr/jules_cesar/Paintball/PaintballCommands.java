@@ -19,7 +19,7 @@ public class PaintballCommands implements Commands{
 
 	@Command(name = "aide")
 	public void aide(Player joueur){
-		joueur.chat("/help shop");
+		joueur.chat("/help paintball");
 	}
 	
 	@Command(name = "init")
@@ -31,11 +31,19 @@ public class PaintballCommands implements Commands{
 		catch(ArenaAlreadyInGame e){ joueur.sendMessage(ChatColor.RED + "Une partie est deja en cours."); }
 	}
 	
-	@Command(name = "join", flags = "br")
+	@Command(name = "join", flags = "br", min = 0, max = 1)
 	public void rejoindre(Player joueur, CommandArgs args){
 		try{
 			if(args.hasFlag('b')) Paintball.getArene().rejoindrePartie(joueur, "bleu");
 			else if(args.hasFlag('r')) Paintball.getArene().rejoindrePartie(joueur, "rouge");
+			else if(args.length() != 0){
+				if(args.get(0).equalsIgnoreCase("bleu")) Paintball.getArene().rejoindrePartie(joueur, "bleu");
+				else if(args.get(0).equalsIgnoreCase("rouge")) Paintball.getArene().rejoindrePartie(joueur, "rouge");
+				else joueur.sendMessage(ChatColor.RED + "Vous devez choisir une equipe !");
+			}
+			else{
+				joueur.sendMessage(ChatColor.RED + "Vous devez choisir une equipe !");
+			}
 		}
 		catch(ArenaNotSet e){ joueur.sendMessage(ChatColor.RED + "L'arene n'est pas configure."); }
 		catch(ArenaAlreadyInGame e){ joueur.sendMessage(ChatColor.RED + "Une partie est deja en cours."); }
@@ -92,6 +100,7 @@ public class PaintballCommands implements Commands{
 	public void quitter(Player joueur){
 		try {
 			Paintball.getArene().quitter(joueur);
+			joueur.sendMessage("Vous venez de quitter le paintball.");
 		}
 		catch (PlayerNotInGame e) { joueur.sendMessage("Vous n'etes pas dans l'arene."); }
 		catch (ArenaAlreadyInGame e) { joueur.sendMessage("Vous ne pouvez pas quitter l'arene en cours de partie."); }
@@ -105,10 +114,5 @@ public class PaintballCommands implements Commands{
 	@Command(name = "load")
 	public void load(Player joueur){
 		Paintball.loadInventoryIfNecessary(joueur);
-	}
-	
-	@Command(name = "list")
-	public void list(Player joueur){
-		// A implementer
 	}
 }

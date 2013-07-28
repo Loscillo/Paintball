@@ -24,7 +24,7 @@ public class Arene {
 		}
 		else{
 			Paintball.setPartie(new Partie());
-			Bukkit.getServer().broadcastMessage("Une partie de Paintball est initialise !\n/paintball join -r pour rejoindre l'equipe rouge !\n/paintball join -b pour rejoindre l'equipe bleu !");
+			Bukkit.getServer().broadcastMessage(ChatColor.BLUE + "Une partie de Paintball est initialise !\n/paintball join -r (ou rouge) pour rejoindre l'equipe rouge !\n/paintball join -b (ou bleu) pour rejoindre l'equipe bleu !");
 		}
 	}
 	
@@ -34,7 +34,7 @@ public class Arene {
 		if(Paintball.getPartie().estJoueur(joueur)) throw new PlayerAlreadyInGame();
 		joueur.teleport(spectateur);
 		Paintball.getPartie().ajouterJoueur(joueur, equipe);
-		Paintball.getPartie().annoncer(ChatColor.GREEN + joueur.getName() + ChatColor.BLUE + " a rejoint l'equipe " + (equipe.equalsIgnoreCase("bleu")?ChatColor.BLUE:ChatColor.RED) + equipe);
+		Paintball.getPartie().annoncer(ChatColor.GREEN + joueur.getName() + ChatColor.BLUE + " a rejoint l'equipe " + (equipe.equalsIgnoreCase("bleu")?ChatColor.AQUA:ChatColor.RED) + equipe);
 		
 	}
 	

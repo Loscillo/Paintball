@@ -22,7 +22,7 @@ public class PaintballListener implements Listener{
 	public void commande(PlayerCommandPreprocessEvent event){
 		if(Paintball.getPartie() != null){
 			if(Paintball.getPartie().estJoueur(event.getPlayer())){
-				if(!event.getMessage().startsWith("/paintball")){
+				if(!event.getMessage().startsWith("/paintball") && !event.getMessage().startsWith("/help paintball")){
 					event.setCancelled(true);
 					event.getPlayer().sendMessage("Seule les commandes /paintball sont autorises en etant joueur.");
 				}

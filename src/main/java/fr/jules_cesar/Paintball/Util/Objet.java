@@ -1,7 +1,6 @@
 package fr.jules_cesar.Paintball.Util;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -14,8 +13,6 @@ import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
-
-import com.google.gson.internal.StringMap;
 
 public class Objet {
 
