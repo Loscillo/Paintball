@@ -3,22 +3,15 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>fr.jules_cesar</groupId>
 	<artifactId>Paintball</artifactId>
-	<version>${buildNumber}</version>
+	<version>1.0-SNAPSHOT</version>
 	<name>Paintball</name>
 	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.test.skip>true</maven.test.skip>
-		<BUILD_NUMBER>${buildNumber}</BUILD_NUMBER>
+		<BUILD_NUMBER>1.0-SNAPSHOT</BUILD_NUMBER>
 	</properties>
-
-	<scm>
-        <connection>scm:svn:http://127.0.0.1/dummy</connection>
-        <developerConnection>scm:svn:https://127.0.0.1/dummy</developerConnection>
-        <tag>HEAD</tag>
-        <url>http://127.0.0.1/dummy</url>
-    </scm>
-    
+	
 	<repositories>
 		<repository>
 			<id>bukkit-repo</id>
@@ -55,40 +48,25 @@
 
 		<resources>
 			<resource>
+				<targetPath>fr/jules_cesar/Paintball</targetPath>
+				<filtering>true</filtering>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>*.properties</include>
+				</includes>
+			</resource>
+			<resource>
 				<targetPath>.</targetPath>
 				<filtering>true</filtering>
 				<directory>src/main/resources</directory>
 				<includes>
-					<include>plugin.yml</include>
-					<include>config.yml</include>
+					<include>*.yml</include>
 				</includes>
 			</resource>
 		</resources>
 
         <!-- Plugins -->
 		<plugins>
-      
-            <!-- Numero de build automatique -->
-      		<plugin>
-        		<groupId>org.codehaus.mojo</groupId>
-        		<artifactId>buildnumber-maven-plugin</artifactId>
-        		<version>1.1</version>
-        		<executions>
-          			<execution>
-            			<phase>validate</phase>
-            			<goals>
-              				<goal>create</goal>
-            			</goals>
-          			</execution>
-        		</executions>
-        		<configuration>
-        			<revisionOnScmFailure>true</revisionOnScmFailure>
-        			<format>{0,number}</format>
-          			<items>
-            			<item>buildNumber0</item>
-          			</items>
-        		</configuration>
-      		</plugin>
       
 			<!-- Plugin de compilation -->
 			<plugin>
@@ -121,13 +99,6 @@
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>2.8.1</version>
 				<configuration>
-					<links>
-						<link>http://jd.bukkit.org/apidocs/</link>
-						<link>http://bukkitutils.aumgn.fr/apidocs/</link>
-					</links>
-					<offlineLinks>
-					</offlineLinks>
-					<linksource>true</linksource>
 					<groups>
 						<group>
 							<title>Paintball</title>
@@ -139,44 +110,4 @@
 
 		</plugins>
 	</build>
-
-	<profiles>
-
-		<profile>
-			<id>standalone</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-shade-plugin</artifactId>
-						<version>1.7.1</version>
-						<executions>
-							<execution>
-								<phase>package</phase>
-								<goals>
-									<goal>shade</goal>
-								</goals>
-								<configuration>
-									<dependencyReducedPomLocation>${basedir}/target/dependency-reduced-pom.xml</dependencyReducedPomLocation>
-									<shadedArtifactAttached>true</shadedArtifactAttached>
-									<shadedClassifierName>standalone</shadedClassifierName>
-									<artifactSet>
-										<includes>
-											<include>fr.aumgn:bukkitutils</include>
-										</includes>
-									</artifactSet>
-									<relocations>
-										<relocation>
-											<pattern>fr.aumgn.bukkitutils</pattern>
-											<shadedPattern>fr.aumgn.dac2.bukkitutils</shadedPattern>
-										</relocation>
-									</relocations>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
 </project>

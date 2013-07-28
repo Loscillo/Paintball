@@ -98,19 +98,35 @@ public class Partie {
 	 * @param joueur Le joueur a qui il faut retirer une vie
 	 * @param tireur Le joueur qui a tire
 	 */
-	public void toucherJoueur(Player joueur, Player tireur){
-		annoncer(joueur.getName() + " c'est fait toucher par " + tireur.getName());
-		if(joueurs_rouge.containsKey(joueur)){
-			kill_bleu++;
-			joueurs_rouge.put(joueur, joueurs_rouge.get(joueur) - 1);
-			if(joueurs_rouge.get(joueur) == 0) tuerJoueur(joueur, true);
+	public void toucherJoueur(Player victime, Player tireur){
+		char equipe_victime = (joueurs_rouge.containsKey(victime)?'r':'b');
+		char equipe_tireur = (joueurs_bleu.containsKey(tireur)?'b':'r');
+		int vie = (equipe_victime=='r'?joueurs_rouge.get(victime):joueurs_bleu.get(victime));
+		if(equipe_victime == equipe_tireur){
+			if(vie == 1){
+				annoncer(Paintball.messages.get("game.badhit.died", victime.getName(), tireur.getName()));
+				tuerJoueur(victime, true);
+			}
+			else{
+				annoncer(Paintball.messages.get("game.badhit", victime.getName(), tireur.getName()));
+				if(equipe_victime == 'r') joueurs_rouge.put(victime, vie - 1);
+				else joueurs_bleu.put(victime, vie - 1);
+			}
 		}
 		else{
-			kill_rouge++;
-			joueurs_bleu.put(joueur, joueurs_bleu.get(joueur) - 1);
-			if(joueurs_bleu.get(joueur) == 0) tuerJoueur(joueur, true);
+			if(vie == 1){
+				annoncer(Paintball.messages.get("game.hit.died", victime.getName(), tireur.getName()));
+				tuerJoueur(victime, true);
+			}
+			else{
+				annoncer(Paintball.messages.get("game.hit", victime.getName(), tireur.getName()));
+				if(equipe_victime == 'r') joueurs_rouge.put(victime, vie - 1);
+				else joueurs_bleu.put(victime, vie - 1);
+			}
+			if(equipe_tireur == 'r') kill_rouge++;
+			else kill_bleu++;
 		}
-		tableau.enleverVie(joueur);
+		tableau.enleverVie(victime);
 	}
 	
 	/**
@@ -121,8 +137,7 @@ public class Partie {
 		retirerJoueur(joueur, false);
 		Paintball.getArene().teleporterSpectateur(joueur);
 		ajouterSpectateur(joueur);
-		if(naturel) annoncer(joueur.getName() + " n'a plus de vie ! Il est donc elimine.");
-		else annoncer(joueur.getName() + " est considere comme mort suite a sa deconnexion.");
+		if(!naturel) annoncer(joueur.getName() + " est considere comme mort suite a sa deconnexion.");
 		Paintball.loadInventoryIfNecessary(joueur);
 	}
 	

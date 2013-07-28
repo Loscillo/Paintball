@@ -9,6 +9,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import fr.aumgn.bukkitutils.command.CommandsRegistration;
+import fr.aumgn.bukkitutils.localization.Localization;
+import fr.aumgn.bukkitutils.localization.PluginMessages;
 import fr.jules_cesar.Paintball.Util.GsonUtil;
 import fr.jules_cesar.Paintball.Util.Inventaire;
 
@@ -16,6 +18,7 @@ public class Paintball extends JavaPlugin implements Listener{
 
 	private static Arene arene = new Arene();
 	private static Partie partie;
+	public static PluginMessages messages;
 	
 	public void onEnable(){
 		// Events
@@ -29,6 +32,10 @@ public class Paintball extends JavaPlugin implements Listener{
 		// Commandes
 		CommandsRegistration register = new CommandsRegistration(this, Locale.FRANCE);
 		register.register(new PaintballCommands());
+		
+		// Messages
+        Localization localisation = new Localization(this, Locale.FRANCE);
+        messages = localisation.get("messages");
 	}
 	
 	public void onDisable(){

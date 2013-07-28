@@ -24,7 +24,7 @@ public class Arene {
 		}
 		else{
 			Paintball.setPartie(new Partie());
-			Bukkit.getServer().broadcastMessage(ChatColor.BLUE + "Une partie de Paintball est initialise !\n/paintball join -r (ou rouge) pour rejoindre l'equipe rouge !\n/paintball join -b (ou bleu) pour rejoindre l'equipe bleu !");
+			Bukkit.getServer().broadcastMessage(Paintball.messages.get("init") + "\n" + Paintball.messages.get("init.team1") + "\n" + Paintball.messages.get("init.team2"));
 		}
 	}
 	
