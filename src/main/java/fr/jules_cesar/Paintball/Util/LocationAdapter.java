@@ -34,7 +34,6 @@ public class LocationAdapter extends TypeAdapter<Location> {
         writer.nullValue();
         return;
       }
-      String object = value.getWorld().getName() + "," + value.getBlockX() + "," + value.getBlockY() + "," + value.getBlockZ();
       writer.beginObject();
       writer.name("world");
       writer.value(value.getWorld().getName());

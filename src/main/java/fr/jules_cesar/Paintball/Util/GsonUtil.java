@@ -12,8 +12,6 @@ import org.bukkit.Location;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import fr.jules_cesar.Paintball.Util.*;
-
 public class GsonUtil{
 
   private Gson gson;
