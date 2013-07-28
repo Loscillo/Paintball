@@ -2,9 +2,7 @@ package fr.jules_cesar.Paintball;
 
 import java.io.File;
 import java.util.Locale;
-import java.util.logging.Logger;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
@@ -18,7 +16,6 @@ public class Paintball extends JavaPlugin implements Listener{
 
 	private static Arene arene = new Arene();
 	private static Partie partie;
-	private Logger log = getLogger();
 	
 	public void onEnable(){
 		// Events
@@ -26,7 +23,8 @@ public class Paintball extends JavaPlugin implements Listener{
 		
 		// Configuration
 		if(!this.getDataFolder().exists()) this.getDataFolder().mkdir();
-		arene = (Arene) new GsonUtil(log, getDataFolder().getPath()).lire("location", Arene.class);
+		if(!new File(this.getDataFolder().getPath() + "/inventories/").exists()) new File(this.getDataFolder().getPath() + "/inventories/").mkdir();
+		arene = (Arene) new GsonUtil().lire("location", Arene.class);
 
 		// Commandes
 		CommandsRegistration register = new CommandsRegistration(this, Locale.FRANCE);
@@ -34,7 +32,7 @@ public class Paintball extends JavaPlugin implements Listener{
 	}
 	
 	public void onDisable(){
-		new GsonUtil(log, getDataFolder().getPath()).ecrire("location", arene);
+		new GsonUtil().ecrire("location", arene);
 	}
 	
 	public static Arene getArene(){
@@ -49,18 +47,18 @@ public class Paintball extends JavaPlugin implements Listener{
 		partie = p;
 	}
 	
-	public static void saveInventory(Player joueur){
-		new GsonUtil(Bukkit.getPluginManager().getPlugin("Paintball").getLogger(), Bukkit.getPluginManager().getPlugin("Paintball").getDataFolder().getPath()).ecrire(joueur.getName(), new Inventaire(joueur.getInventory()));
+	public static void saveInventory(Player joueur, char equipe){
+		new GsonUtil().ecrire("/inventories/" + joueur.getName(), new Inventaire(joueur.getInventory()));
 		joueur.getInventory().clear();
 		joueur.getInventory().addItem(new ItemStack(332, 128));
 	}
-	
+
 	public static void loadInventoryIfNecessary(Player joueur){
-		if(new File("plugins/Paintball/" + joueur.getName() + ".json").exists()){
-			Inventaire inventaire = (Inventaire)new GsonUtil(Bukkit.getPluginManager().getPlugin("Paintball").getLogger(), Bukkit.getPluginManager().getPlugin("Paintball").getDataFolder().getPath()).lire(joueur.getName(), Inventaire.class);
+		if(new File("plugins/Paintball/inventories/" + joueur.getName() + ".json").exists()){
+			Inventaire inventaire = (Inventaire) new GsonUtil().lire(joueur.getName(), Inventaire.class);
 			joueur.getInventory().setContents(inventaire.getItems());
 			joueur.getInventory().setArmorContents(inventaire.getArmor());
-			new File("plugins/Paintball/" + joueur.getName() + ".json").delete();
+			new File("plugins/Paintball/inventories/" + joueur.getName() + ".json").delete();
 		}
 	}
 }

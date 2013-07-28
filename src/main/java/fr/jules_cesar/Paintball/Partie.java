@@ -53,13 +53,13 @@ public class Partie {
 		for(Player p : joueurs){
 			Paintball.getArene().teleporterRouge(p);
 			tableau.ajouterVueJoueur(p, "rouge");
-			Paintball.saveInventory(p);
+			Paintball.saveInventory(p, 'r');
 		}
 		joueurs = joueurs_bleu.keySet();
 		for(Player p : joueurs){
 			Paintball.getArene().teleporterBleu(p);
 			tableau.ajouterVueJoueur(p, "bleu");
-			Paintball.saveInventory(p);
+			Paintball.saveInventory(p, 'b');
 		}
 		annoncer("La partie commence !");
 	}

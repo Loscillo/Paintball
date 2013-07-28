@@ -7,7 +7,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.Logger;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.plugin.Plugin;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -18,13 +20,14 @@ public class GsonUtil{
   private Logger log;
   private String chemin;
   
-  public GsonUtil(Logger log, String chemin){
+  public GsonUtil(){
+	  Plugin p = Bukkit.getPluginManager().getPlugin("Paintball");
     gson = new GsonBuilder()
     .registerTypeAdapter(Location.class, new LocationAdapter())
     .setPrettyPrinting()
     .create();
-    this.log = log;
-    this.chemin = chemin;
+    this.log = p.getLogger();
+    this.chemin = p.getDataFolder().getPath();
   }
   
   public void ecrire(String nom, Object objet){
