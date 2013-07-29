@@ -115,6 +115,7 @@ public class Partie {
 				annoncer(Paintball.messages.get("game.badhit", victime.getName(), tireur.getName()));
 				if(equipe_victime == 'r') joueurs_rouge.put(victime, vie - 1);
 				else joueurs_bleu.put(victime, vie - 1);
+				retour(victime);
 			}
 		}
 		else{
@@ -126,6 +127,7 @@ public class Partie {
 				annoncer(Paintball.messages.get("game.hit", victime.getName(), tireur.getName()));
 				if(equipe_victime == 'r') joueurs_rouge.put(victime, vie - 1);
 				else joueurs_bleu.put(victime, vie - 1);
+				retour(victime);
 			}
 			if(equipe_tireur == 'r') kill_rouge++;
 			else kill_bleu++;
