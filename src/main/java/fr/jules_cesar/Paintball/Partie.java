@@ -246,4 +246,9 @@ public class Partie {
 		liste_spectateurs.remove(joueur);
 		tableau.retirerVue(joueur);
 	}
+
+	public void retour(Player joueur) {
+		if(joueurs_rouge.containsKey(joueur)) Paintball.getArene().teleporterRouge(joueur);
+		else Paintball.getArene().teleporterBleu(joueur);
+	}
 }
