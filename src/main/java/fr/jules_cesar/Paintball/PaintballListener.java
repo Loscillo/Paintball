@@ -8,6 +8,7 @@ import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class PaintballListener implements Listener{
@@ -45,12 +46,16 @@ public class PaintballListener implements Listener{
 	
 	@EventHandler
 	public void mort(PlayerDeathEvent event){
-		if(Paintball.getPartie() != null){
-			if(Paintball.getPartie().estJoueur(event.getEntity())){
-				Paintball.getPartie().retour(event.getEntity());
-				event.getEntity().getInventory().addItem(new ItemStack(332, 128));
-				event.setDeathMessage("");
-			}
+		if(Paintball.getPartie() != null && Paintball.getPartie().estJoueur(event.getEntity())){
+			event.setDeathMessage("");
+		}
+	}
+	
+	@EventHandler
+	public void reapparition(PlayerRespawnEvent event){
+		if(Paintball.getPartie() != null && Paintball.getPartie().estJoueur(event.getPlayer())){
+			event.setRespawnLocation(Paintball.getPartie().retour(event.getPlayer()));
+			event.getPlayer().getInventory().addItem(new ItemStack(332, 128));
 		}
 	}
 }

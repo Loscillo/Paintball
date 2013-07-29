@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Set;
 import java.util.Stack;
 
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import fr.jules_cesar.Paintball.ScoreBoard.TableauScore;
@@ -247,8 +248,8 @@ public class Partie {
 		tableau.retirerVue(joueur);
 	}
 
-	public void retour(Player joueur) {
-		if(joueurs_rouge.containsKey(joueur)) Paintball.getArene().teleporterRouge(joueur);
-		else Paintball.getArene().teleporterBleu(joueur);
+	public Location retour(Player joueur) {
+		if(joueurs_rouge.containsKey(joueur)) return Paintball.getArene().getRouge();
+		else return Paintball.getArene().getBleu();
 	}
 }
