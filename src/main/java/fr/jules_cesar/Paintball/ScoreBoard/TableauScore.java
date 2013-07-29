@@ -1,6 +1,7 @@
 package fr.jules_cesar.Paintball.ScoreBoard;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
@@ -18,7 +19,9 @@ public class TableauScore {
 	public TableauScore(){
 		board = Bukkit.getScoreboardManager().getNewScoreboard();
 		rouge = board.registerNewTeam("Rouge");
+		rouge.setPrefix(ChatColor.RED + "");
 		bleu = board.registerNewTeam("Bleu");
+		bleu.setPrefix(ChatColor.AQUA + "");
 		objective = board.registerNewObjective("Vies", "dummy");
 		objective.setDisplaySlot(DisplaySlot.SIDEBAR);
 		objective.setDisplayName("Vies restantes");

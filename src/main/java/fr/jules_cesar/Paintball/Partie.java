@@ -51,6 +51,7 @@ public class Partie {
 		// Teleportation des joueurs
 		Set<Player> joueurs = joueurs_rouge.keySet();
 		for(Player p : joueurs){
+			p.setAllowFlight(false);
 			p.setFoodLevel(20);
 			Paintball.getArene().teleporterRouge(p);
 			tableau.ajouterVueJoueur(p, "rouge");
@@ -58,6 +59,7 @@ public class Partie {
 		}
 		joueurs = joueurs_bleu.keySet();
 		for(Player p : joueurs){
+			p.setAllowFlight(false);
 			p.setFoodLevel(20);
 			Paintball.getArene().teleporterBleu(p);
 			tableau.ajouterVueJoueur(p, "bleu");
@@ -243,6 +245,7 @@ public class Partie {
 	}
 
 	public void retirerSpectateur(Player joueur) {
+		Paintball.getArene().teleporterSpectateur(joueur);
 		joueur.setAllowFlight(false);
 		liste_spectateurs.remove(joueur);
 		tableau.retirerVue(joueur);
