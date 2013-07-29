@@ -46,4 +46,8 @@ public class TableauScore {
 		if(vie != 0) score.setScore(vie);
 		else board.resetScores(joueur);
 	}
+	
+	public void enleverJoueur(Player joueur){
+		board.resetScores(joueur);
+	}
 }

@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Set;
 import java.util.Stack;
 
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import fr.jules_cesar.Paintball.ScoreBoard.TableauScore;
@@ -136,8 +135,11 @@ public class Partie {
 	private void tuerJoueur(Player joueur, boolean naturel){
 		retirerJoueur(joueur, false);
 		Paintball.getArene().teleporterSpectateur(joueur);
-		ajouterSpectateur(joueur);
-		if(!naturel) annoncer(Paintball.messages.get("game.disconnect", joueur.getName()));
+		if(naturel) ajouterSpectateur(joueur);
+		else{
+			annoncer(Paintball.messages.get("game.disconnect", joueur.getName()));
+			tableau.enleverJoueur(joueur);
+		}
 		Paintball.loadInventoryIfNecessary(joueur);
 	}
 	

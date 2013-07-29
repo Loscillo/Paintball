@@ -34,11 +34,6 @@
 			<artifactId>bukkitutils</artifactId>
 			<version>1.0.3</version>
 		</dependency>
-		<dependency>
-			<groupId>net.milkbowl</groupId>
-			<artifactId>vault</artifactId>
-			<version>1.2.4</version>
-		</dependency>
 	</dependencies>
 
 	<build>
