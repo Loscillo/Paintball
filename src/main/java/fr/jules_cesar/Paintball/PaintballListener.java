@@ -26,22 +26,18 @@ public class PaintballListener implements Listener{
 	
 	@EventHandler
 	public void commande(PlayerCommandPreprocessEvent event){
-		if(Paintball.getPartie() != null){
-			if(Paintball.getPartie().estJoueur(event.getPlayer())){
-				if(!event.getMessage().startsWith("/paintball") && !event.getMessage().startsWith("/help paintball")){
+		if(Paintball.getPartie() != null && Paintball.getPartie().estJoueur(event.getPlayer())){
+			if(!event.getMessage().startsWith("/paintball") && !event.getMessage().startsWith("/help paintball")){
 					event.setCancelled(true);
 					event.getPlayer().sendMessage(Paintball.messages.get("command.noallowed"));
-				}
 			}
 		}
 	}
 	
 	@EventHandler
 	public void faim(FoodLevelChangeEvent event){
-		if(Paintball.getPartie() != null){
-			if(Paintball.getPartie().estJoueur((Player) event.getEntity())){
-				event.setCancelled(true);
-			}
+		if(Paintball.getPartie() != null && Paintball.getPartie().estJoueur((Player) event.getEntity())){
+			event.setCancelled(true);
 		}
 	}
 	
