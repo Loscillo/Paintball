@@ -3,6 +3,7 @@ package fr.jules_cesar.Paintball;
 import java.io.File;
 import java.util.Locale;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
@@ -12,7 +13,7 @@ import fr.aumgn.bukkitutils.command.CommandsRegistration;
 import fr.aumgn.bukkitutils.localization.Localization;
 import fr.aumgn.bukkitutils.localization.PluginMessages;
 import fr.jules_cesar.Paintball.Util.GsonUtil;
-import fr.jules_cesar.Paintball.Util.Inventaire;
+import fr.jules_cesar.Paintball.Util.InventoryUtil;
 
 public class Paintball extends JavaPlugin implements Listener{
 
@@ -54,18 +55,22 @@ public class Paintball extends JavaPlugin implements Listener{
 		partie = p;
 	}
 	
+	public static File getFolder(){
+		return Bukkit.getServer().getPluginManager().getPlugin("Paintball").getDataFolder();
+	}
+	
 	public static void saveInventory(Player joueur, char equipe){
-		new GsonUtil().ecrire("/inventories/" + joueur.getName(), new Inventaire(joueur.getInventory()));
-		joueur.getInventory().clear();
-		joueur.getInventory().addItem(new ItemStack(332, 128));
+        try{
+        	new InventoryUtil(joueur).ecrire();
+        	joueur.getInventory().clear();
+        	joueur.getInventory().addItem(new ItemStack(332, 128));
+        }
+        catch(Exception e){ joueur.sendMessage("Impossible de sauvegarder votre inventaire"); }
 	}
 
 	public static void loadInventoryIfNecessary(Player joueur){
-		if(new File("plugins/Paintball/inventories/" + joueur.getName() + ".json").exists()){
-			Inventaire inventaire = (Inventaire) new GsonUtil().lire("/inventories/" + joueur.getName(), Inventaire.class);
-			joueur.getInventory().setContents(inventaire.getItems());
-			joueur.getInventory().setArmorContents(inventaire.getArmor());
-			new File("plugins/Paintball/inventories/" + joueur.getName() + ".json").delete();
+		if(new File("plugins/Paintball/inventories/" + joueur.getName() + ".yml").exists()){
+			InventoryUtil.lire(joueur);
 		}
 	}
 }
