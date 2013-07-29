@@ -2,6 +2,7 @@ package fr.jules_cesar.Paintball;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
@@ -44,14 +45,14 @@ public class PaintballListener implements Listener{
 		}
 	}
 	
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void mort(PlayerDeathEvent event){
 		if(Paintball.getPartie() != null && Paintball.getPartie().estJoueur(event.getEntity())){
 			event.setDeathMessage("");
 		}
 	}
 	
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void reapparition(PlayerRespawnEvent event){
 		if(Paintball.getPartie() != null && Paintball.getPartie().estJoueur(event.getPlayer())){
 			event.setRespawnLocation(Paintball.getPartie().retour(event.getPlayer()));
