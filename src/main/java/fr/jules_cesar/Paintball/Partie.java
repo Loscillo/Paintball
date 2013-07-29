@@ -50,12 +50,14 @@ public class Partie {
 		// Teleportation des joueurs
 		Set<Player> joueurs = joueurs_rouge.keySet();
 		for(Player p : joueurs){
+			p.setFoodLevel(20);
 			Paintball.getArene().teleporterRouge(p);
 			tableau.ajouterVueJoueur(p, "rouge");
 			Paintball.saveInventory(p, 'r');
 		}
 		joueurs = joueurs_bleu.keySet();
 		for(Player p : joueurs){
+			p.setFoodLevel(20);
 			Paintball.getArene().teleporterBleu(p);
 			tableau.ajouterVueJoueur(p, "bleu");
 			Paintball.saveInventory(p, 'b');

@@ -1,8 +1,10 @@
 package fr.jules_cesar.Paintball;
 
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
@@ -26,6 +28,15 @@ public class PaintballListener implements Listener{
 					event.setCancelled(true);
 					event.getPlayer().sendMessage(Paintball.messages.get("command.noallowed"));
 				}
+			}
+		}
+	}
+	
+	@EventHandler
+	public void faim(FoodLevelChangeEvent event){
+		if(Paintball.getPartie() != null){
+			if(Paintball.getPartie().estJoueur((Player) event.getEntity())){
+				event.setCancelled(true);
 			}
 		}
 	}

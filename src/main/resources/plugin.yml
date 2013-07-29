@@ -52,7 +52,7 @@ commands:
         permission: paintball.joueur
         
     "paintball quitter":
-        description: "Assistez a une partie de paintball"
+        description: "Quittez une partie de paintball"
         permission: paintball.joueur
     
     
