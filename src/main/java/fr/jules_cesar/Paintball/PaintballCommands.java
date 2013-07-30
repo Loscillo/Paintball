@@ -41,7 +41,7 @@ public class PaintballCommands implements Commands{
 				else joueur.sendMessage(Paintball.messages.get("command.noteam"));
 			}
 			else{
-				joueur.sendMessage(Paintball.messages.get("command.noset"));
+				joueur.sendMessage(Paintball.messages.get("command.noteam"));
 			}
 		}
 		catch(ArenaNotSet e){ joueur.sendMessage(Paintball.messages.get("arena.notset")); }

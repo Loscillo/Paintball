@@ -51,8 +51,13 @@ public class PaintballListener implements Listener{
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void reapparition(PlayerRespawnEvent event){
 		if(Paintball.getPartie() != null && Paintball.getPartie().estJoueur(event.getPlayer())){
-			event.setRespawnLocation(Paintball.getPartie().retour(event.getPlayer()));
-			event.getPlayer().getInventory().addItem(new ItemStack(332, 128));
+			if(Paintball.getPartie().obtenirEtat() == 1){
+				event.setRespawnLocation(Paintball.getPartie().retour(event.getPlayer()));
+				event.getPlayer().getInventory().addItem(new ItemStack(332, 128));
+			}
+			else{
+				event.setRespawnLocation(Paintball.getArene().getSpectateur());
+			}
 		}
 	}
 }
